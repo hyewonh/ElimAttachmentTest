@@ -260,6 +260,27 @@
             transform: translateY(0);
         }
 
+        .reset-btn {
+            background: #fff;
+            color: #ad1457;
+            border: 2px solid #f8bbd0;
+            border-radius: 50px;
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .reset-btn:hover {
+            background: #fff0f5;
+            border-color: #f06292;
+            transform: translateY(-1px);
+        }
+
         /* ── Result ── */
         .result-box {
             margin-top: 36px;
@@ -356,6 +377,59 @@
             margin-bottom: 4px;
         }
 
+        /* ── Result Detail Cards ── */
+        .result-detail-card {
+            margin-top: 16px;
+            padding: 18px 22px;
+            border-radius: 14px;
+            border-left: 4px solid;
+            background: #fafafa;
+            animation: fadeUp 0.4s ease;
+        }
+
+        .result-detail-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .result-detail-card p {
+            font-size: 14px;
+            font-weight: 400;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .result-detail-card.diagnosis {
+            border-left-color: #7c4dff;
+            background: linear-gradient(135deg, #ede7f6, #f3e5f5);
+        }
+
+        .result-detail-card.diagnosis h3 {
+            color: #5e35b1;
+        }
+
+        .result-detail-card.verse {
+            border-left-color: #00bcd4;
+            background: linear-gradient(135deg, #e0f7fa, #e0f2f1);
+        }
+
+        .result-detail-card.verse h3 {
+            color: #00838f;
+        }
+
+        .result-detail-card.prayer {
+            border-left-color: #ff7043;
+            background: linear-gradient(135deg, #fff3e0, #fbe9e7);
+        }
+
+        .result-detail-card.prayer h3 {
+            color: #d84315;
+        }
+
         /* ── Footer ── */
         .footer {
             text-align: center;
@@ -390,7 +464,7 @@
         <div class="result-box" id="result"></div>
 
         <!-- Footer -->
-        <div class="footer">© Elim Church · 성인 애착 검사</div>
+        <div class="footer">© Elim Center International</div>
 
     </div>
 
@@ -493,11 +567,31 @@
             const max = Math.max(s, a, x, d);
             let type = "";
             let emoji = "";
+            let diagnosis = "";
+            let verse = "";
+            let prayer = "";
 
-            if (max === s) { type = "안정형"; emoji = "🌿"; }
-            else if (max === a) { type = "무시형 (회피형)"; emoji = "🧊"; }
-            else if (max === x) { type = "집착형 (불안형)"; emoji = "🌊"; }
-            else { type = "혼란형"; emoji = "🌀"; }
+            if (max === s) {
+                type = "안정형"; emoji = "🌿";
+                diagnosis = "하나님을 신뢰하고 관계가 안정된 상태입니다. 더 깊은 친밀함으로 나아갈 수 있습니다.";
+                verse = "요한복음 15:5 - 나는 포도나무요 너희는 가지라";
+                prayer = "하나님, 주님과 더 깊은 사랑의 관계로 나아가게 하소서.";
+            } else if (max === a) {
+                type = "무시형 (회피형)"; emoji = "🧊";
+                diagnosis = "하나님을 믿지만 깊이 의지하지 않는 경향이 있습니다.";
+                verse = "잠언 3:5 - 마음을 다하여 여호와를 신뢰하라";
+                prayer = "하나님, 내가 나를 의지하지 않고 주님께 맡기게 하소서.";
+            } else if (max === x) {
+                type = "집착형 (불안형)"; emoji = "🌊";
+                diagnosis = "하나님의 사랑을 확신하지 못하고 불안이 있는 상태입니다.";
+                verse = "로마서 8:38-39 - 아무것도 우리를 끊을 수 없다";
+                prayer = "하나님, 말씀으로 주님의 사랑을 확신하게 하소서.";
+            } else {
+                type = "혼란형"; emoji = "🌀";
+                diagnosis = "사랑을 원하지만 두려움과 상처가 있는 상태입니다.";
+                verse = "시편 34:18 - 마음이 상한 자에게 가까이 하신다";
+                prayer = "하나님, 나의 상처를 치유하시고 사랑을 믿게 하소서.";
+            }
 
             const resultBox = document.getElementById("result");
             resultBox.innerHTML = `
@@ -522,9 +616,32 @@
                     <span>나의 애착 유형</span>
                     ${emoji} ${type}
                 </div>
+                <div class="result-detail-card diagnosis">
+                    <h3>🔎 하나님과의 관계 진단</h3>
+                    <p>${diagnosis}</p>
+                </div>
+                <div class="result-detail-card verse">
+                    <h3>📖 말씀</h3>
+                    <p>${verse}</p>
+                </div>
+                <div class="result-detail-card prayer">
+                    <h3>🙏 기도</h3>
+                    <p>${prayer}</p>
+                </div>
+                <button class="reset-btn" onclick="resetTest()">🔄 검사 새로 시작</button>
             `;
             resultBox.classList.add('show');
             resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetTest() {
+            const inputs = document.querySelectorAll('input[type="radio"]');
+            inputs.forEach(input => input.checked = false);
+            
+            const resultBox = document.getElementById("result");
+            resultBox.classList.remove('show');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 
