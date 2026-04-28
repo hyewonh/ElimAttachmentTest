@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elim Attachment Test (5분)</title>
+    <meta name="description" content="Elim 성인 애착 유형 검사 - 5분 안에 나의 애착 유형을 알아보세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 50%, #e0f7fa 100%);
+            min-height: 100vh;
+            padding: 40px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: #f8bbd0;
+            color: #ad1457;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4a4a6a;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #9090b0;
+            font-weight: 300;
+        }
+
+        /* ── (legend box removed) ── */
+
+        /* ── Question Cards ── */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            color: #a0a0c0;
+            text-transform: uppercase;
+            margin: 28px 0 14px;
+            padding-left: 4px;
+        }
+
+        .question-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 18px 22px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 14px rgba(160, 140, 200, 0.1);
+            border: 1.5px solid #ede8f8;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 6px 24px rgba(160, 140, 200, 0.2);
+            border-color: #c5b9ea;
+        }
+
+        .question-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #4a4a6a;
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .question-num {
+            font-size: 12px;
+            font-weight: 700;
+            color: #b8a9d9;
+            margin-right: 4px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+
+        .radio-group label {
+            flex: 1;
+            min-width: 0;
+            cursor: pointer;
+        }
+
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .radio-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 8px 4px;
+            border-radius: 12px;
+            border: 1.5px solid transparent;
+            transition: all 0.18s ease;
+            user-select: none;
+            text-align: center;
+        }
+
+        .radio-num {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .radio-label {
+            font-size: 10px;
+            font-weight: 500;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* 1 – 전혀 아니다 : 빨강 계열 */
+        .radio-btn.v1 {
+            background: #fdecea;
+            border-color: #f5c6c0;
+            color: #c0392b;
+        }
+
+        .radio-group label:hover .radio-btn.v1,
+        .radio-group input[type="radio"]:checked+.radio-btn.v1 {
+            background: #e74c3c;
+            border-color: #c0392b;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* 2 – 아니다 : 주황 계열 */
+        .radio-btn.v2 {
+            background: #fef3e2;
+            border-color: #f9d8a0;
+            color: #d35400;
+        }
+
+        .radio-group label:hover .radio-btn.v2,
+        .radio-group input[type="radio"]:checked+.radio-btn.v2 {
+            background: #e67e22;
+            border-color: #d35400;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(230, 126, 34, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* 3 – 보통이다 : 노랑 계열 */
+        .radio-btn.v3 {
+            background: #fefce8;
+            border-color: #f9e79f;
+            color: #9a7d0a;
+        }
+
+        .radio-group label:hover .radio-btn.v3,
+        .radio-group input[type="radio"]:checked+.radio-btn.v3 {
+            background: #f1c40f;
+            border-color: #d4ac0d;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(241, 196, 15, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* 4 – 그렇다 : 연두 계열 */
+        .radio-btn.v4 {
+            background: #eafaf1;
+            border-color: #a9dfbf;
+            color: #1e8449;
+        }
+
+        .radio-group label:hover .radio-btn.v4,
+        .radio-group input[type="radio"]:checked+.radio-btn.v4 {
+            background: #27ae60;
+            border-color: #1e8449;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(39, 174, 96, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* 5 – 매우 그렇다 : 초록 계열 */
+        .radio-btn.v5 {
+            background: #e8f8f5;
+            border-color: #76d7c4;
+            color: #148f77;
+        }
+
+        .radio-group label:hover .radio-btn.v5,
+        .radio-group input[type="radio"]:checked+.radio-btn.v5 {
+            background: #1abc9c;
+            border-color: #148f77;
+            color: #fff;
+            box-shadow: 0 3px 10px rgba(26, 188, 156, 0.35);
+            transform: translateY(-2px);
+        }
+
+        /* ── Submit Button ── */
+        .submit-wrap {
+            text-align: center;
+            margin-top: 36px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #f48fb1, #ce93d8);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 56px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(206, 147, 216, 0.45);
+            transition: all 0.22s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(206, 147, 216, 0.55);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ── Result ── */
+        .result-box {
+            margin-top: 36px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px 30px;
+            box-shadow: 0 6px 30px rgba(160, 130, 200, 0.15);
+            border: 1.5px solid #e0d0f8;
+            display: none;
+            animation: fadeUp 0.4s ease;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #9090b0;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .score-row.secure {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .score-row.avoidant {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .score-row.anxious {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .score-row.disorganized {
+            background: #fce4ec;
+            color: #ad1457;
+        }
+
+        .score-label {
+            font-weight: 600;
+        }
+
+        .score-val {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .result-type {
+            margin-top: 20px;
+            text-align: center;
+            padding: 18px;
+            background: linear-gradient(135deg, #f8bbd0, #e1bee7);
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #4a2060;
+        }
+
+        .result-type span {
+            display: block;
+            font-size: 13px;
+            font-weight: 400;
+            color: #7a5090;
+            margin-bottom: 4px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 12px;
+            color: #c0b8d0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="badge">Elim Attachment Test</div>
+            <h1>성인 애착 유형 검사</h1>
+            <p>각 문항을 읽고 자신에게 해당하는 점수를 선택해 주세요 · 약 5분 소요</p>
+        </div>
+
+
+
+        <!-- Questions -->
+        <div id="questions"></div>
+
+        <!-- Submit -->
+        <div class="submit-wrap">
+            <button class="submit-btn" onclick="calculate()">결과 보기 →</button>
+        </div>
+
+        <!-- Result -->
+        <div class="result-box" id="result"></div>
+
+        <!-- Footer -->
+        <div class="footer">© Elim Church · 성인 애착 검사</div>
+
+    </div>
+
+    <script>
+        const questions = [
+            "나는 사람에게 쉽게 마음을 열지 않는다",
+            "나는 사랑받고 있다는 확신이 있다",
+            "나는 버림받을까 봐 걱정한다",
+            "나는 관계에서 가까워지는 것이 두렵다",
+            "나는 혼자서도 충분히 잘 지낸다",
+            "나는 하나님께 나아가는 것이 편하다",
+            "나는 상대의 반응에 민감하다",
+            "나는 사람을 믿기 어렵다",
+            "나는 감정을 표현하기 어렵다",
+            "나는 안정된 관계를 유지한다",
+
+            "나는 인정받지 못하면 불안하다",
+            "나는 하나님이 떠나실까 걱정된다",
+            "나는 혼자 해결하려 한다",
+            "나는 관계에서 집착하는 편이다",
+            "나는 감정이 자주 흔들린다",
+            "나는 의지하는 것이 어렵다",
+            "나는 하나님과 친밀하다",
+            "나는 가까워지면 거리를 둔다",
+            "나는 사랑을 확인받고 싶다",
+            "나는 사람과 가까워지는 것이 편하다",
+
+            "나는 사람을 믿었다가 실망한 적 많다",
+            "나는 혼자 있는 것이 편하다",
+            "나는 불안과 집착을 동시에 느낀다",
+            "나는 하나님을 신뢰한다",
+            "나는 감정을 숨긴다",
+            "나는 관계에서 안정감을 느낀다",
+            "나는 타인의 시선을 신경쓴다",
+            "나는 가까워졌다 멀어진다",
+            "나는 도움 요청이 어렵다",
+            "나는 하나님 사랑을 확신한다",
+
+            "나는 관계에서 의존적이다",
+            "나는 깊은 관계를 피한다",
+            "나는 감정 기복이 심하다",
+            "나는 사람과 있을 때 편안하다",
+            "나는 혼자 해결해야 한다",
+            "나는 하나님께 마음을 나눈다",
+            "나는 버림받지 않으려 노력한다",
+            "나는 가까워지는 것이 불편하다",
+            "나는 관계에서 혼란을 느낀다",
+            "나는 관계에서 안정감을 느낀다"
+        ];
+
+        const secure = [1, 5, 9, 16, 19, 23, 25, 29, 33, 35, 39];
+        const avoidant = [0, 4, 8, 12, 15, 17, 21, 24, 28, 31, 34, 37];
+        const anxious = [2, 6, 10, 11, 13, 18, 26, 30, 36];
+        const disorganized = [3, 7, 14, 20, 22, 27, 32, 38];
+
+        const container = document.getElementById("questions");
+
+        questions.forEach((q, i) => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `card-${i}`;
+
+            const labels = ['전혀\n아니다', '아니다', '보통이다', '그렇다', '매우\n그렇다'];
+            let radioHtml = '';
+            for (let j = 1; j <= 5; j++) {
+                radioHtml += `
+                    <label>
+                        <input type="radio" name="q${i}" value="${j}">
+                        <div class="radio-btn v${j}">
+                            <span class="radio-num">${j}</span>
+                            <span class="radio-label">${labels[j - 1]}</span>
+                        </div>
+                    </label>`;
+            }
+
+            card.innerHTML = `
+                <div class="question-text">
+                    <span class="question-num">${i + 1}.</span>${q}
+                </div>
+                <div class="radio-group">${radioHtml}</div>
+            `;
+            container.appendChild(card);
+        });
+
+        function sum(indices) {
+            let total = 0;
+            indices.forEach(i => {
+                const val = document.querySelector(`input[name="q${i}"]:checked`);
+                if (val) total += parseInt(val.value);
+            });
+            return total;
+        }
+
+        function calculate() {
+            const s = sum(secure);
+            const a = sum(avoidant);
+            const x = sum(anxious);
+            const d = sum(disorganized);
+
+            const max = Math.max(s, a, x, d);
+            let type = "";
+            let emoji = "";
+
+            if (max === s) { type = "안정형"; emoji = "🌿"; }
+            else if (max === a) { type = "무시형 (회피형)"; emoji = "🧊"; }
+            else if (max === x) { type = "집착형 (불안형)"; emoji = "🌊"; }
+            else { type = "혼란형"; emoji = "🌀"; }
+
+            const resultBox = document.getElementById("result");
+            resultBox.innerHTML = `
+                <div class="result-title">📊 검사 결과</div>
+                <div class="score-row secure">
+                    <span class="score-label">🌿 안정형</span>
+                    <span class="score-val">${s}점</span>
+                </div>
+                <div class="score-row avoidant">
+                    <span class="score-label">🧊 무시형 (회피형)</span>
+                    <span class="score-val">${a}점</span>
+                </div>
+                <div class="score-row anxious">
+                    <span class="score-label">🌊 집착형 (불안형)</span>
+                    <span class="score-val">${x}점</span>
+                </div>
+                <div class="score-row disorganized">
+                    <span class="score-label">🌀 혼란형</span>
+                    <span class="score-val">${d}점</span>
+                </div>
+                <div class="result-type">
+                    <span>나의 애착 유형</span>
+                    ${emoji} ${type}
+                </div>
+            `;
+            resultBox.classList.add('show');
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+
+</body>
+
+</html>
