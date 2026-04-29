@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elim Center 상담 테스트</title>
+    <title>Elim Center Counseling Test</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -448,13 +448,13 @@
 
 <!-- ══ Navigation ══ -->
 <div class="top-nav">
-    <div class="nav-brand">✦ ELIM CENTER 상담 테스트 ✦</div>
+    <div class="nav-brand">✦ ELIM CENTER COUNSELING TEST ✦</div>
     <div class="nav-tabs" id="main-nav" style="display:none">
-        <button class="nav-tab active" id="tab1" onclick="showTest(1)">검사 1<span class="done-dot"></span></button>
-        <button class="nav-tab" id="tab2" onclick="showTest(2)">검사 2<span class="done-dot"></span></button>
-        <button class="nav-tab" id="tab3" onclick="showTest(3)">검사 3<span class="done-dot"></span></button>
-        <button class="nav-tab" id="tab4" onclick="showTest(4)">검사 4<span class="done-dot"></span></button>
-        <button class="nav-tab" id="tab5" onclick="showTest(5)">종합 결과<span class="done-dot"></span></button>
+        <button class="nav-tab" id="tab1" onclick="showTest(1)">Test 1<span class="done-dot"></span></button>
+        <button class="nav-tab" id="tab2" onclick="showTest(2)">Test 2<span class="done-dot"></span></button>
+        <button class="nav-tab" id="tab3" onclick="showTest(3)">Test 3<span class="done-dot"></span></button>
+        <button class="nav-tab" id="tab4" onclick="showTest(4)">Test 4<span class="done-dot"></span></button>
+        <button class="nav-tab" id="tab5" onclick="showTest(5)">Summary<span class="done-dot"></span></button>
     </div>
 </div>
 
@@ -464,30 +464,30 @@
 <div id="test0" class="test-section active">
     <div class="test-header" style="padding-top:8px">
         <div class="test-badge">Elim Center</div>
-        <h2>검사를 시작하기 전에<br>기본 정보를 입력해 주세요</h2>
-        <p>입력하신 정보는 상담 자료로만 사용되며 외부에 공개되지 않습니다</p>
+        <h2>Before starting the assessment,<br>please enter your basic information</h2>
+        <p>Your information will only be used for counseling purposes and will not be shared publicly</p>
     </div>
     <div class="reg-screen">
         <div class="reg-card">
             <div class="reg-field">
-                <label class="reg-label">이름 *</label>
-                <input type="text" id="reg-name" class="reg-input" placeholder="홍길동" autocomplete="name">
+                <label class="reg-label">Name *</label>
+                <input type="text" id="reg-name" class="reg-input" placeholder="John Doe" autocomplete="name">
             </div>
             <div class="reg-field">
-                <label class="reg-label">생년월일 *</label>
+                <label class="reg-label">Date of Birth *</label>
                 <input type="date" id="reg-birth" class="reg-input">
             </div>
             <div class="reg-field">
-                <label class="reg-label">이메일 *</label>
+                <label class="reg-label">Email *</label>
                 <input type="email" id="reg-email" class="reg-input" placeholder="example@email.com" autocomplete="email">
             </div>
             <div class="reg-error" id="reg-error"></div>
             <div style="text-align:center">
-                <button class="submit-btn" onclick="startTest()">검사 시작하기 →</button>
+                <button class="submit-btn" onclick="startTest()">Start Assessment →</button>
             </div>
         </div>
         <div class="lang-links">
-            <a href="en.html" class="lang-link">🇺🇸 English</a>
+            <a href="index.html" class="lang-link">🇰🇷 한국어</a>
             <a href="zh.html" class="lang-link">🇨🇳 中文</a>
             <a href="es.html" class="lang-link">🇪🇸 Español</a>
         </div>
@@ -498,12 +498,12 @@
 <div id="test1" class="test-section">
     <div class="test-header">
         <div class="test-badge">Assessment 01</div>
-        <h2>각 문항을 읽고 자신에게 해당하는 점수를 선택해 주세요</h2>
-        <p>1 전혀 아니다 &nbsp;·&nbsp; 3 보통이다 &nbsp;·&nbsp; 5 매우 그렇다 &nbsp;·&nbsp; 약 5분 소요</p>
+        <h2>Please read each item and select the score that applies to you</h2>
+        <p>1 Not at all &nbsp;·&nbsp; 3 Neutral &nbsp;·&nbsp; 5 Very much &nbsp;·&nbsp; ~5 min</p>
     </div>
     <div id="q1"></div>
     <div class="submit-wrap">
-        <button class="submit-btn" onclick="submitTest1()">결과 확인 →</button>
+        <button class="submit-btn" onclick="submitTest1()">See Results →</button>
     </div>
     <div class="result-box" id="result1"></div>
 </div>
@@ -512,12 +512,12 @@
 <div id="test2" class="test-section">
     <div class="test-header">
         <div class="test-badge">Assessment 02</div>
-        <h2>문장을 읽고 빈칸에 가장 먼저 떠오르는 대로 적어주세요</h2>
-        <p>정답이 없습니다. 솔직하고 자유롭게 작성해 주세요 · 약 5분 소요</p>
+        <h2>Read each sentence and complete the blank with the first thing that comes to mind</h2>
+        <p>There are no right answers. Write freely and honestly · ~5 min</p>
     </div>
     <div id="q2"></div>
     <div class="submit-wrap">
-        <button class="submit-btn" onclick="submitTest2()">저장하고 다음 →</button>
+        <button class="submit-btn" onclick="submitTest2()">Save &amp; Next →</button>
     </div>
     <div class="result-box" id="result2"></div>
 </div>
@@ -526,12 +526,12 @@
 <div id="test3" class="test-section">
     <div class="test-header">
         <div class="test-badge">Assessment 03</div>
-        <h2>문장을 읽고 빈칸에 가장 먼저 떠오르는 대로 적어주세요</h2>
-        <p>정답이 없습니다. 솔직하고 자유롭게 작성해 주세요 · 약 5분 소요</p>
+        <h2>Read each sentence and complete the blank with the first thing that comes to mind</h2>
+        <p>There are no right answers. Write freely and honestly · ~5 min</p>
     </div>
     <div id="q3"></div>
     <div class="submit-wrap">
-        <button class="submit-btn" onclick="submitTest3()">저장하고 다음 →</button>
+        <button class="submit-btn" onclick="submitTest3()">Save &amp; Next →</button>
     </div>
     <div class="result-box" id="result3"></div>
 </div>
@@ -540,12 +540,12 @@
 <div id="test4" class="test-section">
     <div class="test-header">
         <div class="test-badge">Assessment 04</div>
-        <h2>각 문항을 읽고 자신에게 해당하는 점수를 선택해 주세요</h2>
-        <p>1 전혀 아니다 &nbsp;·&nbsp; 3 보통이다 &nbsp;·&nbsp; 5 매우 그렇다 &nbsp;·&nbsp; 약 7분 소요</p>
+        <h2>Please read each item and select the score that applies to you</h2>
+        <p>1 Not at all &nbsp;·&nbsp; 3 Neutral &nbsp;·&nbsp; 5 Very much &nbsp;·&nbsp; ~7 min</p>
     </div>
     <div id="q4"></div>
     <div class="submit-wrap">
-        <button class="submit-btn" onclick="submitTest4()">결과 확인 →</button>
+        <button class="submit-btn" onclick="submitTest4()">See Results →</button>
     </div>
     <div class="result-box" id="result4"></div>
 </div>
@@ -553,9 +553,9 @@
 <!-- ══════════════ COMPREHENSIVE ══════════════ -->
 <div id="test5" class="test-section">
     <div class="test-header">
-        <div class="test-badge">종합 결과</div>
-        <h2>전체 검사 종합 결과</h2>
-        <p>4개 검사 결과를 한눈에 확인하세요</p>
+        <div class="test-badge">Summary</div>
+        <h2>Comprehensive Results</h2>
+        <p>View all 4 assessment results at a glance</p>
     </div>
     <div id="comp-results"></div>
 </div>
@@ -565,9 +565,9 @@
 
 <script>
 /* ─── Config ─── */
-const MAKE_WEBHOOK = 'YOUR_MAKE_WEBHOOK_URL'; // ← Make.com URL로 교체
+const MAKE_WEBHOOK = 'YOUR_MAKE_WEBHOOK_URL';
 const RESULT_BASE  = 'https://hyewonh.github.io/ElimAttachmentTest/result.html';
-const LANG = 'ko';
+const LANG = 'en';
 
 /* ─── Registration ─── */
 const REG = { name:'', email:'', birthDate:'', id:'' };
@@ -581,9 +581,9 @@ function startTest() {
     const birth = document.getElementById('reg-birth').value;
     const email = document.getElementById('reg-email').value.trim();
     const err   = document.getElementById('reg-error');
-    if (!name)  { err.textContent = '이름을 입력해 주세요.'; return; }
-    if (!birth) { err.textContent = '생년월일을 입력해 주세요.'; return; }
-    if (!email || !email.includes('@')) { err.textContent = '올바른 이메일을 입력해 주세요.'; return; }
+    if (!name)  { err.textContent = 'Please enter your name.'; return; }
+    if (!birth) { err.textContent = 'Please enter your date of birth.'; return; }
+    if (!email || !email.includes('@')) { err.textContent = 'Please enter a valid email address.'; return; }
     err.textContent = '';
     REG.name = name; REG.email = email; REG.birthDate = birth; REG.id = genId();
     document.getElementById('main-nav').style.display = 'flex';
@@ -606,7 +606,7 @@ function buildResultUrl() {
 async function submitResults() {
     const btn    = document.getElementById('save-btn');
     const status = document.getElementById('save-status');
-    btn.disabled = true; btn.textContent = '전송 중...';
+    btn.disabled = true; btn.textContent = 'Sending...';
     const resultUrl = buildResultUrl();
     const payload = {
         id: REG.id, submittedAt: new Date().toISOString(), lang: LANG,
@@ -622,16 +622,16 @@ async function submitResults() {
             method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify(payload)
         });
-        btn.textContent = '✅ 저장 완료';
+        btn.textContent = '✅ Saved';
         status.innerHTML = `
             <p style="color:#2e7d32;font-size:13px;margin-top:8px;line-height:1.6">
-              결과가 저장되었습니다.<br>
-              <strong>${REG.email}</strong>로 결과 링크를 발송합니다.
+              Results saved.<br>
+              A result link will be sent to <strong>${REG.email}</strong>.
             </p>
-            <a href="${resultUrl}" target="_blank" class="save-result-link">📄 결과지 열기</a>`;
+            <a href="${resultUrl}" target="_blank" class="save-result-link">📄 Open Result Page</a>`;
     } catch(e) {
-        btn.disabled = false; btn.textContent = '💾 결과 저장 및 이메일 발송';
-        status.textContent = '전송에 실패했습니다. 다시 시도해 주세요.';
+        btn.disabled = false; btn.textContent = '💾 Save Results & Send Email';
+        status.textContent = 'Submission failed. Please try again.';
     }
 }
 
@@ -650,7 +650,7 @@ function showTest(n) {
 function markDone(n) { document.getElementById('tab' + n).classList.add('done'); }
 
 /* ─── Shared: render Likert ─── */
-const LIKERT_LABELS = ['전혀\n아니다', '아니다', '보통이다', '그렇다', '매우\n그렇다'];
+const LIKERT_LABELS = ['Not at\nall', 'No', 'Neutral', 'Yes', 'Very\nmuch'];
 function renderLikert(qs, containerId, pfx, sectionBreaks) {
     const wrap = document.getElementById(containerId);
     qs.forEach((q, i) => {
@@ -703,7 +703,7 @@ function renderSTC(stems, containerId, pfx, sectionBreaks) {
                 ${s.b} <span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>${afterHtml}
             </div>
             <textarea class="stc-input" id="${pfx}${i}" rows="2"
-                placeholder="자유롭게 적어주세요..." oninput="autoResize(this)"></textarea>`;
+                placeholder="Write freely..." oninput="autoResize(this)"></textarea>`;
         wrap.appendChild(card);
     });
 }
@@ -712,48 +712,48 @@ function autoResize(el) {
     el.style.height = (el.scrollHeight) + 'px';
 }
 
-/* ══════════ TEST 1 — 성인 애착 ══════════ */
+/* ══════════ TEST 1 — Adult Attachment ══════════ */
 const T1Q = [
-    "나는 누군가가 나를 실망시키면 마음을 닫아버린다",
-    "나는 하나님께 내 약한 모습을 솔직히 보여줄 수 있다",
-    "나는 상대의 반응이 늦으면 버림받았다고 느낀다",
-    "나는 관계가 가까워지면 오히려 불편함을 느낀다",
-    "나는 어려운 일이 생기면 혼자 해결하려 한다",
-    "나는 하나님께 기도할 때 편안함을 느낀다",
-    "나는 상대의 작은 말에도 감정이 크게 흔들린다",
-    "나는 사람을 믿고 싶지만 쉽게 신뢰하지 못한다",
-    "나는 내 감정을 표현하기보다 참는 편이다",
-    "나는 안정적인 관계를 오래 유지하는 편이다",
-    "나는 인정받지 못하면 내 가치가 떨어진다고 느낀다",
-    "나는 하나님이 침묵하시면 나를 떠나셨다고 느낀다",
-    "나는 도움을 요청하는 것이 부담스럽다",
-    "나는 사랑을 확인받지 않으면 불안해진다",
-    "나는 감정 기복이 큰 편이다",
-    "나는 누군가에게 의지하는 것이 약하다고 느낀다",
-    "나는 하나님과 개인적인 관계가 깊다고 느낀다",
-    "나는 관계가 깊어질수록 거리를 두고 싶어진다",
-    "나는 상대의 사랑을 반복적으로 확인하려 한다",
-    "나는 사람과 가까워지는 것이 자연스럽다",
-    "나는 신뢰했던 사람에게 상처받은 기억이 오래 남는다",
-    "나는 혼자 있는 시간이 더 안전하게 느껴진다",
-    "나는 관계에서 동시에 의지하고 밀어내는 행동을 한다",
-    "나는 하나님이 나를 항상 사랑하신다고 확신한다",
-    "나는 감정을 드러내면 손해 본다고 느낀다",
-    "나는 관계 안에서 안정감과 평안을 느낀다",
-    "나는 상대가 나를 어떻게 생각하는지 계속 신경 쓴다",
-    "나는 가까워졌다가 갑자기 관계를 끊고 싶어진다",
-    "나는 힘들어도 도움을 요청하지 않는다",
-    "나는 하나님께 내 모든 감정을 표현할 수 있다",
-    "나는 관계에서 상대에게 의존하는 편이다",
-    "나는 깊은 관계를 맺기보다 일정 거리를 유지하려 한다",
-    "나는 감정이 통제되지 않는다고 느낄 때가 있다",
-    "나는 사람들과 함께 있을 때 편안함을 느낀다",
-    "나는 약한 모습을 보이지 않으려 노력한다",
-    "나는 하나님께 내 마음을 숨기지 않는다",
-    "나는 관계가 끝날까 봐 지나치게 노력한다",
-    "나는 사람과 가까워지는 것이 부담스럽다",
-    "나는 관계에서 혼란과 갈등을 자주 경험한다",
-    "나는 관계에서 신뢰와 안정감을 느낀다"
+    "I shut myself off when someone disappoints me",
+    "I can honestly show God my vulnerable side",
+    "When someone is slow to respond, I feel abandoned",
+    "I feel uncomfortable when relationships become closer",
+    "When something difficult arises, I try to handle it alone",
+    "I feel comfortable when praying to God",
+    "Small words from others easily shake my emotions",
+    "I want to trust people but find it difficult",
+    "I tend to hold back rather than express my emotions",
+    "I tend to maintain stable relationships for a long time",
+    "When I don't receive recognition, I feel my worth decreases",
+    "When God is silent, I feel He has left me",
+    "I feel burdened asking for help",
+    "I become anxious if I don't receive reassurance of love",
+    "I have large emotional swings",
+    "I feel that depending on someone shows weakness",
+    "I feel I have a deep personal relationship with God",
+    "As relationships deepen, I want to put distance between us",
+    "I repeatedly seek reassurance of love from others",
+    "Getting close to people feels natural to me",
+    "Memories of being hurt by someone I trusted linger long",
+    "Being alone feels safer to me",
+    "I simultaneously want to depend on others and push them away",
+    "I am confident that God always loves me",
+    "I feel I lose out when I show my emotions",
+    "I feel a sense of security and peace in relationships",
+    "I constantly worry about what others think of me",
+    "I suddenly want to cut off relationships after getting close",
+    "I don't ask for help even when I'm struggling",
+    "I can express all my emotions to God",
+    "I tend to depend on others in relationships",
+    "I prefer to keep a certain distance rather than form deep relationships",
+    "I sometimes feel my emotions are out of control",
+    "I feel comfortable when I'm with people",
+    "I try not to show weakness",
+    "I don't hide anything from God",
+    "I make excessive efforts for fear that a relationship will end",
+    "Getting close to people feels burdensome",
+    "I often experience confusion and conflict in relationships",
+    "I feel trust and stability in relationships"
 ];
 // 0-indexed
 const T1_SEC = [1,5,9,16,19,23,25,29,33,35,39];
@@ -770,21 +770,21 @@ function submitTest1() {
 
     let type, emoji, key, desc, verse;
     if (mx === s) {
-        type='안정형'; emoji='🌿'; key='secure';
-        desc='하나님을 신뢰하고 관계가 안정된 상태입니다. 더 깊은 친밀함으로 나아갈 수 있습니다.';
-        verse='요한복음 15:5 – 나는 포도나무요 너희는 가지라';
+        type='Secure'; emoji='🌿'; key='secure';
+        desc='You tend to trust God and have stable relationships. You can move toward deeper intimacy.';
+        verse='John 15:5 – I am the vine; you are the branches';
     } else if (mx === a) {
-        type='무시형 (회피형)'; emoji='🧊'; key='avoidant';
-        desc='하나님을 믿지만 깊이 의지하지 않는 경향이 있습니다. 내려놓음의 훈련이 필요합니다.';
-        verse='잠언 3:5 – 마음을 다하여 여호와를 신뢰하라';
+        type='Dismissive (Avoidant)'; emoji='🧊'; key='avoidant';
+        desc='You believe in God but tend not to depend deeply. The practice of letting go is needed.';
+        verse='Proverbs 3:5 – Trust in the LORD with all your heart';
     } else if (mx === x) {
-        type='집착형 (불안형)'; emoji='🌊'; key='anxious';
-        desc='하나님의 사랑을 확신하지 못하고 불안이 있는 상태입니다. 말씀 안에서 안정이 필요합니다.';
-        verse='로마서 8:38-39 – 아무것도 우리를 끊을 수 없다';
+        type='Preoccupied (Anxious)'; emoji='🌊'; key='anxious';
+        desc="You're not fully confident in God's love and experience anxiety. Stability through the Word is needed.";
+        verse='Romans 8:38-39 – Nothing can separate us from the love of God';
     } else {
-        type='혼란형'; emoji='🌀'; key='disorganized';
-        desc='사랑을 원하지만 두려움과 상처가 있는 상태입니다. 치유의 여정이 필요합니다.';
-        verse='시편 34:18 – 마음이 상한 자에게 가까이 하신다';
+        type='Disorganized'; emoji='🌀'; key='disorganized';
+        desc='You desire love but have fear and wounds. A healing journey is needed.';
+        verse='Psalm 34:18 – The LORD is close to the brokenhearted';
     }
 
     S.t1 = { s, a, x, d, type, emoji, key, desc, verse };
@@ -792,22 +792,22 @@ function submitTest1() {
 
     const box = document.getElementById('result1');
     box.innerHTML = `
-        <div class="result-title">📊 검사 결과</div>
-        <div class="score-row secure">   <span class="score-label">🌿 안정형</span>         <span class="score-val">${s}점</span></div>
-        <div class="score-row avoidant"> <span class="score-label">🧊 무시형 (회피형)</span><span class="score-val">${a}점</span></div>
-        <div class="score-row anxious">  <span class="score-label">🌊 집착형 (불안형)</span><span class="score-val">${x}점</span></div>
-        <div class="score-row disorganized"><span class="score-label">🌀 혼란형</span>       <span class="score-val">${d}점</span></div>
-        <div class="result-type"><span>나의 유형</span>${emoji} ${type}</div>
-        <div class="result-detail-card diagnosis"><h3>🔎 진단</h3><p>${desc}</p></div>
-        <div class="result-detail-card verse"><h3>📖 말씀</h3><p>${verse}</p></div>
+        <div class="result-title">📊 Assessment Results</div>
+        <div class="score-row secure">   <span class="score-label">🌿 Secure</span>            <span class="score-val">${s}</span></div>
+        <div class="score-row avoidant"> <span class="score-label">🧊 Dismissive (Avoidant)</span><span class="score-val">${a}</span></div>
+        <div class="score-row anxious">  <span class="score-label">🌊 Preoccupied (Anxious)</span><span class="score-val">${x}</span></div>
+        <div class="score-row disorganized"><span class="score-label">🌀 Disorganized</span>    <span class="score-val">${d}</span></div>
+        <div class="result-type"><span>My Type</span>${emoji} ${type}</div>
+        <div class="result-detail-card diagnosis"><h3>🔎 Analysis</h3><p>${desc}</p></div>
+        <div class="result-detail-card verse"><h3>📖 Scripture</h3><p>${verse}</p></div>
         <div style="text-align:center;margin-top:20px">
-            <button class="next-btn" onclick="showTest(2)">다음 검사로 →</button>
+            <button class="next-btn" onclick="showTest(2)">Next Assessment →</button>
         </div>`;
     box.classList.add('show');
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-/* ══════════ STC 분석 엔진 ══════════ */
+/* ══════════ STC Analysis Engine ══════════ */
 const POS_W = [
     '편안','안심','안전','신뢰','믿음','사랑','평안','기쁨','기쁘','행복','감사',
     '가깝','친밀','따뜻','든든','확신','소망','기대','함께','도움','응답','자유',
@@ -815,7 +815,11 @@ const POS_W = [
     '의지','위로','보호','지켜','열린','좋아','좋은','강점','발전','수용',
     '받아들','인정','충분하','자랑','기쁘다','열정','평화','사랑하','감동',
     '기도할','응답하','가까이','들어주','함께하','아신다','알아주','채워',
-    '고마','존재','풍성','넉넉','든든','포용','치유','회복','새롭','기회'
+    '고마','존재','풍성','넉넉','든든','포용','치유','회복','새롭','기회',
+    // English keywords
+    'comfortable','trust','love','peace','happy','grateful','safe','confident',
+    'close','warm','hope','joy','free','enough','good','strong','heal','open',
+    'faithful','secure','kind','grace'
 ];
 const NEG_W = [
     '두려움','두렵','무섭','불안','걱정','멀다','멀어','실망','포기','숨기',
@@ -825,14 +829,20 @@ const NEG_W = [
     '회피','거부','상처','막막','공허','허전','무기력','형편없','후회',
     '불편','두렵다','판단','심판','정죄','벌','떠나셨','외면하','숨어',
     '귀찮','지쳐','절망','나약','실패','나쁜','나쁘','못된','부담','무관심',
-    '텅 빈','공허하','아픔','고통','괴롭','억울','억압','통제','두려','무섭'
+    '텅 빈','공허하','아픔','고통','괴롭','억울','억압','통제','두려','무섭',
+    // English keywords
+    'fear','scared','anxious','worried','far','disappointed','hide','unknown',
+    'difficult','cold','hard','sad','angry','distrust','doubt','worthless',
+    'shame','guilty','lonely','abandoned','silence','strange','lack','hate',
+    'inferior','avoid','reject','hurt','helpless','empty','lost','give up',
+    'bad','regret','uncomfortable','judged','alone'
 ];
 
 function toneOf(text) {
     if (!text || !text.trim()) return 0;
     let s = 0;
-    POS_W.forEach(w => { if (text.includes(w)) s++; });
-    NEG_W.forEach(w => { if (text.includes(w)) s--; });
+    POS_W.forEach(w => { if (text.toLowerCase().includes(w.toLowerCase())) s++; });
+    NEG_W.forEach(w => { if (text.toLowerCase().includes(w.toLowerCase())) s--; });
     return s > 0 ? 1 : s < 0 ? -1 : 0;
 }
 
@@ -856,20 +866,20 @@ function barHtml(label, pct, color) {
     </div>`;
 }
 
-// ── Test 2 클러스터 (0-indexed) ──
+// Test 2 clusters (0-indexed)
 const T2_CLUSTERS = [
-    { name:'친밀·신뢰',   idxs:[0,1,2,5,6,8,9],    color:'green'  },
-    { name:'불안·두려움', idxs:[3,4,11,15],          color:'red'    },
-    { name:'기대·의존',   idxs:[7,10,12,16],         color:'blue'   },
-    { name:'관계 정체성', idxs:[13,14,17,18,19],     color:'orange' },
+    { name:'Intimacy & Trust',   idxs:[0,1,2,5,6,8,9],    color:'green'  },
+    { name:'Anxiety & Fear',     idxs:[3,4,11,15],          color:'red'    },
+    { name:'Expectation & Dependence', idxs:[7,10,12,16],   color:'blue'   },
+    { name:'Relational Identity',idxs:[13,14,17,18,19],     color:'orange' },
 ];
 
-// ── Test 3 클러스터 (0-indexed) ──
+// Test 3 clusters (0-indexed)
 const T3_CLUSTERS = [
-    { name:'자기인식',       idxs:[0,6,18,19],           color:'blue'   },
-    { name:'외부반응',       idxs:[1,3,4,5,17],          color:'orange' },
-    { name:'비교·시선',      idxs:[2,10,11,14],          color:'red'    },
-    { name:'자기수용·자원',  idxs:[7,8,9,12,13,15,16],   color:'green'  },
+    { name:'Self-Awareness',     idxs:[0,6,18,19],           color:'blue'   },
+    { name:'External Response',  idxs:[1,3,4,5,17],          color:'orange' },
+    { name:'Comparison & Gaze',  idxs:[2,10,11,14],          color:'red'    },
+    { name:'Self-Acceptance',    idxs:[7,8,9,12,13,15,16],   color:'green'  },
 ];
 
 function analyzeSTCResult(vals, clusters, typeRules) {
@@ -886,20 +896,20 @@ function t2TypeRule(scores) {
     const intimacy = scores[0].pct;
     const fear     = scores[1].pct;
     if (intimacy >= 60 && fear <= 40)
-        return { type:'친밀·신뢰형', emoji:'🌸', key:'intimate',
-            desc:'하나님과의 관계에서 친밀감과 신뢰가 높게 나타납니다. 기도와 소통이 자연스럽고 하나님의 사랑을 비교적 확신하는 편입니다.',
-            note:'현재 안정적인 신앙 관계가 형성되어 있습니다. 더 깊은 영적 성장의 방향을 함께 탐색해보세요.' };
+        return { type:'Intimate & Trust', emoji:'🌸', key:'intimate',
+            desc:"Intimacy and trust are high in your relationship with God. Prayer and communication feel natural, and you're fairly confident in God's love.",
+            note:'A stable faith relationship is in place. Explore directions for deeper spiritual growth together.' };
     if (intimacy >= 50 && fear >= 50)
-        return { type:'불안·집착형', emoji:'🌊', key:'anxious-g',
-            desc:'하나님과 가까워지고 싶은 마음이 크지만, 동시에 두려움이나 불안이 함께 나타납니다. 하나님의 침묵이나 거리감에 민감하게 반응할 수 있습니다.',
-            note:'하나님에 대한 이미지가 양가적일 수 있습니다. 어린 시절 관계 경험과의 연결을 탐색해볼 수 있습니다.' };
+        return { type:'Anxious & Clinging', emoji:'🌊', key:'anxious-g',
+            desc:'You have a strong desire to get close to God, but fear and anxiety appear simultaneously. You may be sensitive to God\'s silence or distance.',
+            note:'Your image of God may be ambivalent. Consider exploring connections with early relational experiences.' };
     if (intimacy <= 40)
-        return { type:'거리·회피형', emoji:'🧊', key:'distant',
-            desc:'하나님과의 관계에서 거리감이나 회피 경향이 나타납니다. 감정을 드러내거나 깊이 의지하는 것이 불편할 수 있습니다.',
-            note:'신앙 경험에서의 실망이나 상처를 탐색해볼 필요가 있습니다. 하나님 이미지 재형성 작업이 도움이 될 수 있습니다.' };
-    return { type:'복합·혼재형', emoji:'🌀', key:'complex',
-        desc:'하나님과의 관계에서 복합적인 감정이 나타납니다. 특정 영역에서는 친밀하지만, 다른 영역에서는 혼란이 있을 수 있습니다.',
-        note:'개별 응답을 세밀하게 살펴보며 구체적인 패턴을 파악해보세요.' };
+        return { type:'Distant & Avoidant', emoji:'🧊', key:'distant',
+            desc:'Distance or avoidance tendencies appear in your relationship with God. It may be uncomfortable to be vulnerable or deeply dependent.',
+            note:'Explore possible disappointments or wounds in your faith experience. Reshaping your image of God may be helpful.' };
+    return { type:'Complex & Mixed', emoji:'🌀', key:'complex',
+        desc:'Complex emotions appear in your relationship with God. Close in some areas but confused in others.',
+        note:'Carefully examine individual responses to identify specific patterns.' };
 }
 
 function t3TypeRule(scores) {
@@ -907,53 +917,47 @@ function t3TypeRule(scores) {
     const external   = scores[1].pct;
     const acceptance = scores[3].pct;
     if (awareness >= 60 && acceptance >= 60)
-        return { type:'건강한 자존감형', emoji:'🌱', key:'healthy',
-            desc:'자기 자신을 긍정적으로 인식하고 수용하는 편입니다. 실패나 비판에도 비교적 안정적으로 반응할 수 있습니다.',
-            note:'건강한 자존감 기반이 있습니다. 성장 영역을 함께 탐색하고 강점을 더 활용하는 방향을 모색해보세요.' };
+        return { type:'Healthy Self-Esteem', emoji:'🌱', key:'healthy',
+            desc:'You tend to view and accept yourself positively. You can respond relatively stably to failure or criticism.',
+            note:'A healthy self-esteem foundation exists. Explore growth areas and how to leverage your strengths further.' };
     if (external >= 60)
-        return { type:'외부의존형', emoji:'🔍', key:'external',
-            desc:'자기 가치를 주로 타인의 인정이나 반응에서 찾는 경향이 있습니다. 칭찬받을 때 가치를 느끼고, 비판에 민감하게 반응할 수 있습니다.',
-            note:'내면에서 가치를 발견하는 작업이 필요합니다. 하나님 안에서의 정체성 형성이 핵심 과제가 될 수 있습니다.' };
+        return { type:'Externally Dependent', emoji:'🔍', key:'external',
+            desc:"You tend to find self-worth primarily from others' recognition or reactions. You feel value when praised and may be sensitive to criticism.",
+            note:'Work on discovering inner worth. Forming identity in God may be a key task.' };
     if (awareness <= 40 && acceptance <= 40)
-        return { type:'자기비판형', emoji:'🪞', key:'critical',
-            desc:'자기 자신에 대해 비판적이고 엄격한 내면의 목소리가 강하게 나타납니다. 약점에 집중하고 자기 수용이 어려울 수 있습니다.',
-            note:'내면 비판자 작업과 자기 연민 훈련이 도움이 될 수 있습니다. 은혜로 자신을 바라보는 연습이 필요합니다.' };
-    return { type:'불안정형', emoji:'💧', key:'unstable',
-        desc:'자존감이 상황에 따라 크게 변동하는 경향이 있습니다. 내외부의 자극에 따라 자기 인식이 흔들릴 수 있습니다.',
-        note:'자아 정체감 강화 작업이 필요합니다. 일관된 자기 인식을 갖도록 돕는 상담이 효과적일 수 있습니다.' };
+        return { type:'Self-Critical', emoji:'🪞', key:'critical',
+            desc:'A strong critical inner voice appears. You focus on weaknesses and may find self-acceptance difficult.',
+            note:'Inner critic work and self-compassion training may be helpful. Practice viewing yourself through grace.' };
+    return { type:'Unstable', emoji:'💧', key:'unstable',
+        desc:'Self-esteem tends to fluctuate significantly with circumstances. Internal and external stimuli may shake self-perception.',
+        note:'Ego identity strengthening work is needed. Counseling focused on consistent self-perception can be effective.' };
 }
 
 function buildSTCResultHTML(resp, stems, clusters, analysis, nextTestNum) {
     const vals = resp.map(r => r.val);
-    let h = `<div class="result-title">📊 검사 결과</div>`;
+    let h = `<div class="result-title">📊 Assessment Results</div>`;
 
-    // 유형
-    h += `<div class="stc-type-card"><span>나의 유형</span>${analysis.emoji} ${analysis.type}</div>`;
+    h += `<div class="stc-type-card"><span>My Type</span>${analysis.emoji} ${analysis.type}</div>`;
 
-    // 클러스터 바
-    h += `<div class="stc-cluster-title">테마별 분석</div>`;
+    h += `<div class="stc-cluster-title">Theme Analysis</div>`;
     analysis.scores.forEach(c => { h += barHtml(c.name, c.pct, c.color); });
 
-    // 톤 요약
     h += `<div class="tone-summary" style="margin-top:14px">
-        <div class="tone-pill pos">🟢 긍정 ${analysis.posC}개</div>
-        <div class="tone-pill neg">🔴 부정 ${analysis.negC}개</div>
-        <div class="tone-pill neu">🟡 중립 ${analysis.neuC}개</div>
+        <div class="tone-pill pos">🟢 Positive ${analysis.posC}</div>
+        <div class="tone-pill neg">🔴 Negative ${analysis.negC}</div>
+        <div class="tone-pill neu">🟡 Neutral ${analysis.neuC}</div>
     </div>`;
 
-    // 진단
     h += `<div class="result-detail-card diagnosis">
-        <h3>🔎 분석</h3><p>${analysis.desc}</p>
+        <h3>🔎 Analysis</h3><p>${analysis.desc}</p>
     </div>`;
 
-    // 상담사 노트
     h += `<div class="counselor-note">
-        <p>📋 상담사 참고</p>
+        <p>📋 COUNSELOR NOTE</p>
         <p>${analysis.note}</p>
     </div>`;
 
-    // 응답별 톤
-    h += `<div class="stc-cluster-title" style="margin-top:20px">응답별 반응 패턴</div>`;
+    h += `<div class="stc-cluster-title" style="margin-top:20px">Response Patterns</div>`;
     resp.forEach((item, i) => {
         const { cls, icon } = toneLabel(analysis.tones[i]);
         const stemText = item.stem.after
@@ -965,39 +969,39 @@ function buildSTCResultHTML(resp, stems, clusters, analysis, nextTestNum) {
                 <div class="stc-resp-q">${i+1}. ${stemText}</div>
                 ${item.val
                     ? `<div class="stc-resp-a">${item.val}</div>`
-                    : `<div class="stc-resp-empty-a">미작성</div>`}
+                    : `<div class="stc-resp-empty-a">Not answered</div>`}
             </div>
         </div>`;
     });
 
     h += `<div style="text-align:center;margin-top:24px">
-        <button class="next-btn" onclick="showTest(${nextTestNum})">다음 검사로 →</button>
+        <button class="next-btn" onclick="showTest(${nextTestNum})">Next Assessment →</button>
     </div>`;
     return h;
 }
 
-/* ══════════ TEST 2 — 하나님과의 관계 (STC) ══════════ */
+/* ══════════ TEST 2 — Relationship with God (STC) ══════════ */
 const T2S = [
-    { b:'하나님은 나에게',              after:'분이다' },
-    { b:'나는 하나님께 나아갈 때',       after:'느낌이 든다' },
-    { b:'내가 기도할 때 하나님은',        after:'' },
-    { b:'하나님이 침묵하실 때 나는',      after:'' },
-    { b:'나는 하나님께',                 after:'부분을 숨기고 싶다' },
-    { b:'하나님은 나를',                 after:'보고 계신다' },
-    { b:'나는 하나님을',                 after:'만큼 신뢰한다' },
-    { b:'내가 힘들 때 하나님은',          after:'' },
-    { b:'나는 하나님께 솔직하게',         after:'' },
-    { b:'하나님이 나를 사랑하신다는 것은', after:'' },
-    { b:'나는 하나님께',                 after:'기대를 가지고 있다' },
-    { b:'나는 하나님께 실망하면',         after:'' },
-    { b:'하나님은 나의 문제를',           after:'' },
-    { b:'나는 하나님께 나아가는 것이',    after:'' },
-    { b:'하나님과 나는',                 after:'관계이다' },
-    { b:'나는 하나님께',                 after:'두려움이 있다' },
-    { b:'하나님은 나의 미래를',           after:'' },
-    { b:'나는 하나님을 생각하면',         after:'' },
-    { b:'나는 하나님과의 관계에서',        after:'가장 어렵다' },
-    { b:'나는 하나님 없이',               after:'' },
+    { b:'God is to me', after:'person/being' },
+    { b:'When I approach God, I feel', after:'' },
+    { b:'When I pray, God', after:'' },
+    { b:"When God is silent, I", after:'' },
+    { b:'I want to hide my', after:'from God' },
+    { b:'God looks at me', after:'' },
+    { b:'I trust God', after:'' },
+    { b:"When I'm struggling, God", after:'' },
+    { b:'I can honestly', after:'to God' },
+    { b:'The fact that God loves me', after:'' },
+    { b:'I have', after:'expectations of God' },
+    { b:"When I'm disappointed with God, I", after:'' },
+    { b:'God', after:'my problems' },
+    { b:'Approaching God feels', after:'' },
+    { b:'God and I have a', after:'relationship' },
+    { b:'I have', after:'fear toward God' },
+    { b:'God', after:'my future' },
+    { b:'When I think of God, I feel', after:'' },
+    { b:'In my relationship with God,', after:'is hardest' },
+    { b:'Without God, I', after:'' },
 ];
 
 function submitTest2() {
@@ -1015,28 +1019,28 @@ function submitTest2() {
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-/* ══════════ TEST 3 — 자존감 (STC) ══════════ */
+/* ══════════ TEST 3 — Self-Esteem (STC) ══════════ */
 const T3S = [
-    { b:'나는 나 자신을',                   after:'사람이라고 생각한다' },
-    { b:'나는 실패했을 때',                  after:'반응을 보인다' },
-    { b:'나는 다른 사람과 비교할 때',         after:'느낀다' },
-    { b:'나는 인정받지 못하면',               after:'' },
-    { b:'나는 칭찬을 들으면',                 after:'' },
-    { b:'나는 비판을 받으면',                 after:'' },
-    { b:'나는 나 자신이',                     after:'때 가장 싫다' },
-    { b:'나는 내 약점을 생각하면',             after:'' },
-    { b:'나는 내 강점에 대해',                 after:'' },
-    { b:'나는 혼자 있을 때',                   after:'' },
-    { b:'나는 내 인생이',                      after:'의미가 있다고 느낀다' },
-    { b:'나는 중요한 사람인가에 대해',          after:'생각한다' },
-    { b:'나는 내 감정을',                      after:'방식으로 다룬다' },
-    { b:'나는 어려운 상황에서 나 자신에게',    after:'말한다' },
-    { b:'나는 나를 다른 사람들이',             after:'본다고 느낀다' },
-    { b:'나는 나 자신을',                      after:'만큼 사랑한다' },
-    { b:'나는 내 미래에 대해',                 after:'' },
-    { b:'나는 실수를 했을 때',                 after:'' },
-    { b:'나는 내 존재 자체를',                 after:'' },
-    { b:'나는 나를 한 문장으로',               after:'' },
+    { b:'I think of myself as a', after:'person' },
+    { b:'When I fail, I', after:'in my reaction' },
+    { b:'When I compare myself to others, I feel', after:'' },
+    { b:"When I don't receive recognition, I", after:'' },
+    { b:'When I receive a compliment, I', after:'' },
+    { b:'When I receive criticism, I', after:'' },
+    { b:'I dislike myself most when I', after:'' },
+    { b:'When I think about my weaknesses, I', after:'' },
+    { b:'About my strengths, I', after:'' },
+    { b:"When I'm alone, I", after:'' },
+    { b:'I feel my life has', after:'meaning' },
+    { b:"About whether I'm an important person, I think", after:'' },
+    { b:'I handle my emotions in a', after:'way' },
+    { b:'In difficult situations, I tell myself', after:'' },
+    { b:'I feel others see me', after:'' },
+    { b:'I love myself', after:'' },
+    { b:'About my future, I', after:'' },
+    { b:'When I make a mistake, I', after:'' },
+    { b:'My very existence is', after:'' },
+    { b:'In one sentence, I am', after:'' },
 ];
 
 function submitTest3() {
@@ -1054,53 +1058,53 @@ function submitTest3() {
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
-/* ══════════ TEST 4 — 이기 · 이타성 ══════════ */
+/* ══════════ TEST 4 — Altruism & Ego ══════════ */
 const T4Q = [
-    "나는 갈등 상황에서 먼저 내 잘못을 돌아본다",           // 1 alt
-    "갈등이 생기면 대부분 상대방의 문제라고 느낀다",          // 2 sel
-    "나는 감정이 올라와도 잠시 멈추고 생각한다",              // 3 alt
-    "화가 나면 바로 반응하는 편이다",                         // 4 sel
-    "나는 비판을 들으면 배울 점을 찾으려 한다",               // 5 alt
-    "비판은 대부분 나를 제대로 이해하지 못한 것이라 생각한다", // 6 sel
-    "나는 상대의 입장에서 상황을 보려고 노력한다",            // 7 alt
-    "나는 내 입장이 더 중요하다고 느낀다",                    // 8 sel
-    "나는 내 감정을 절제할 수 있다",                          // 9 alt
-    "나는 감정이 올라오면 통제하기 어렵다",                   // 10 sel
-    "나는 최근 2주 동안 갈등 후 먼저 관계 회복을 시도했다",   // 11 alt
-    "나는 최근 2주 동안 불편한 사람을 피한 적이 많다",        // 12 sel
-    "나는 최근 2주 동안 화가 난 후 스스로 진정하려 노력했다", // 13 alt
-    "나는 최근 2주 동안 화난 일을 반복해서 생각했다",         // 14 sel
-    "나는 문제가 생기면 내 책임을 먼저 생각한다",             // 15 alt
-    "나는 문제가 생기면 상황이나 다른 사람 탓이라고 느낀다",  // 16 sel
-    "나는 다른 사람의 성공을 진심으로 기뻐할 수 있다",        // 17 alt
-    "나는 다른 사람이 잘되면 비교가 된다",                    // 18 sel
-    "나는 내 권리를 내려놓을 수 있다",                        // 19 alt
-    "나는 손해 보는 상황을 받아들이기 어렵다",                // 20 sel
-    "나는 상대를 이해하기 위해 질문하려 한다",                // 21 alt
-    "나는 상대를 판단하는 편이다",                            // 22 sel
-    "나는 화가 나도 부드럽게 표현하려 한다",                  // 23 alt
-    "나는 화가 나면 강하게 표현하는 편이다",                  // 24 sel
-    "나는 내 생각이 틀릴 수도 있다고 인정한다",               // 25 alt
-    "나는 내 생각이 맞다고 확신하면 잘 바꾸지 않는다",        // 26 sel
-    "나는 사람들과의 관계에서 평화를 중요하게 생각한다",      // 27 alt
-    "나는 내가 이기는 것이 더 중요하다",                      // 28 sel
-    "나는 다른 사람의 감정을 고려한다",                       // 29 alt
-    "나는 내 감정이 더 중요하다고 느낀다",                    // 30 sel
-    "나는 실수했을 때 인정하고 사과할 수 있다",               // 31 alt
-    "나는 실수해도 변명하고 싶어진다",                        // 32 sel
-    "나는 갈등 후 관계 회복이 중요하다고 생각한다",           // 33 alt
-    "나는 불편한 관계는 끊는 것이 낫다고 생각한다",           // 34 sel
-    "나는 거의 항상 공정하고 이타적으로 행동한다고 생각한다", // 35 validity
-    "나는 대부분의 상황에서 감정을 완벽히 통제한다고 생각한다", // 36 validity
-    "나는 감정이 올라와도 멈출 수 있다",                      // 37 alt
-    "나는 감정이 올라오면 멈추기 어렵다",                     // 38 sel
-    "나는 다른 사람을 세우는 것이 중요하다",                  // 39 alt
-    "나는 나 자신이 먼저라고 느낄 때가 많다"                  // 40 sel
+    "In conflict situations, I first look at my own faults",
+    "When conflict arises, I usually feel it's the other person's problem",
+    "When emotions arise, I pause and think first",
+    "When angry, I react immediately",
+    "When I receive criticism, I try to find what I can learn",
+    "Criticism is usually because the other person didn't understand me properly",
+    "I try to see the situation from the other person's perspective",
+    "I feel my own perspective is more important",
+    "I can control my emotions",
+    "When emotions arise, it's hard to control them",
+    "In the past 2 weeks, I initiated relationship restoration after conflict",
+    "In the past 2 weeks, I avoided people I was uncomfortable with",
+    "In the past 2 weeks, I tried to calm myself after getting angry",
+    "In the past 2 weeks, I repeatedly thought about things that made me angry",
+    "When problems arise, I think of my responsibility first",
+    "When problems arise, I feel it's due to circumstances or other people",
+    "I can genuinely celebrate others' success",
+    "When others do well, I feel comparative",
+    "I can give up my rights",
+    "I find it hard to accept situations where I lose out",
+    "I try to ask questions to understand the other person",
+    "I tend to judge others",
+    "Even when angry, I try to express myself gently",
+    "When angry, I tend to express myself strongly",
+    "I admit that my thinking could be wrong",
+    "When convinced I'm right, I rarely change my mind",
+    "I value peace in relationships",
+    "Winning feels more important to me",
+    "I consider others' feelings",
+    "I feel my own feelings are more important",
+    "I can admit mistakes and apologize",
+    "Even when I make mistakes, I want to make excuses",
+    "After conflict, I believe relationship restoration is important",
+    "I think it's better to cut off uncomfortable relationships",
+    "I think I almost always act fairly and altruistically",
+    "I think I control my emotions perfectly in most situations",
+    "Even when emotions arise, I can pause",
+    "When emotions arise, it's hard to stop",
+    "I think building others up is important",
+    "I often feel that I come first"
 ];
 // 0-indexed
-const T4_ALT = [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,36,38]; // 19 items → max 95
-const T4_SEL = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,37,39]; // 19 items → max 95
-const T4_VAL = [34,35]; // validity items 35,36 → max 10
+const T4_ALT = [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,36,38];
+const T4_SEL = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,37,39];
+const T4_VAL = [34,35];
 
 const T4_BREAKS = { 0:'Part A', 10:'Part B', 20:'Part C', 30:'Part D' };
 
@@ -1109,24 +1113,23 @@ function submitTest4() {
     const sel = sumQ('d', T4_SEL);
     const val = sumQ('d', T4_VAL);
 
-    // threshold = midpoint (19 items × 3 = 57)
     const altHi = alt > 57;
     const selHi = sel > 57;
     const warn  = val >= 8;
 
     let type, emoji, key, desc;
     if (!selHi && altHi) {
-        type='성숙형'; emoji='🌱'; key='mature';
-        desc='이타성과 자기절제가 잘 갖춰져 있습니다. 관계에서 성숙한 모습을 보입니다.';
+        type='Mature'; emoji='🌱'; key='mature';
+        desc='High altruism and self-control. You show mature behavior in relationships.';
     } else if (selHi && !altHi) {
-        type='자기중심 / 충동형'; emoji='🔥'; key='selfcentered';
-        desc='자기중심성이 강하고 감정 절제에 어려움이 있을 수 있습니다. 내면의 점검이 필요합니다.';
+        type='Self-Centered / Impulsive'; emoji='🔥'; key='selfcentered';
+        desc='Strong self-centeredness with possible difficulty controlling emotions. Inner examination is needed.';
     } else if (selHi && altHi) {
-        type='자기합리화형'; emoji='⚠️'; key='rationalized';
-        desc='이타적이라고 생각하지만 실제 행동과 불일치할 수 있습니다. 자기 인식과 행동의 간격을 살펴보세요.';
+        type='Self-Rationalizing'; emoji='⚠️'; key='rationalized';
+        desc='You may think of yourself as altruistic but be inconsistent in actual behavior. Examine the gap between self-perception and actual behavior.';
     } else {
-        type='회피 / 무관심형'; emoji='💤'; key='avoidant-t';
-        desc='갈등과 관계 상황에서 회피하거나 무관심한 경향이 있습니다. 더 적극적인 관계 참여가 필요합니다.';
+        type='Avoidant / Indifferent'; emoji='💤'; key='avoidant-t';
+        desc='Tendency to avoid or be indifferent in conflict and relationship situations. More active relationship engagement is needed.';
     }
 
     S.t4 = { alt, sel, val, type, emoji, key, desc, altHi, selHi, warn };
@@ -1137,17 +1140,17 @@ function submitTest4() {
 
     const box = document.getElementById('result4');
     box.innerHTML = `
-        <div class="result-title">📊 검사 결과</div>
-        <div class="score-row altruistic"><span class="score-label">🟢 이타성 / 절제</span>     <span class="score-val">${alt}점 <small style="font-size:13px">(${altP}%)</small></span></div>
-        <div class="score-row selfish">   <span class="score-label">🔴 이기성 / 자기중심</span><span class="score-val">${sel}점 <small style="font-size:13px">(${selP}%)</small></span></div>
-        <div class="score-row validity">  <span class="score-label">⚠️ 타당도</span>             <span class="score-val">${val} / 10</span></div>
-        <div class="result-type"><span>나의 유형</span>${emoji} ${type}</div>
-        <div class="result-detail-card diagnosis"><h3>🔎 진단</h3><p>${desc}</p></div>
-        ${warn ? `<div class="result-detail-card warning"><h3>⚠️ 타당도 주의</h3>
-            <p>과장 문항(35·36번) 점수가 높습니다.<br>
-            "나는 항상 옳고 잘한다"는 인식이 강할 수 있으며, 나르시시즘·자기합리화 경향을 살펴볼 필요가 있습니다.</p></div>` : ''}
+        <div class="result-title">📊 Assessment Results</div>
+        <div class="score-row altruistic"><span class="score-label">🟢 Altruism / Self-control</span><span class="score-val">${alt} <small style="font-size:13px">(${altP}%)</small></span></div>
+        <div class="score-row selfish">   <span class="score-label">🔴 Selfishness / Self-centered</span><span class="score-val">${sel} <small style="font-size:13px">(${selP}%)</small></span></div>
+        <div class="score-row validity">  <span class="score-label">⚠️ Validity</span><span class="score-val">${val} / 10</span></div>
+        <div class="result-type"><span>My Type</span>${emoji} ${type}</div>
+        <div class="result-detail-card diagnosis"><h3>🔎 Analysis</h3><p>${desc}</p></div>
+        ${warn ? `<div class="result-detail-card warning"><h3>⚠️ Validity Warning</h3>
+            <p>Validity score is high (items 35-36).<br>
+            Strong "I always act rightly" perception may indicate narcissism or self-rationalization tendency.</p></div>` : ''}
         <div style="text-align:center;margin-top:20px">
-            <button class="next-btn" onclick="showTest(5)">종합 결과 보기 →</button>
+            <button class="next-btn" onclick="showTest(5)">See Summary →</button>
         </div>`;
     box.classList.add('show');
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
@@ -1159,55 +1162,53 @@ function buildComp() {
     let h = '';
 
     const missing = [];
-    if (!S.t1) missing.push('검사 1');
-    if (!S.t2) missing.push('검사 2');
-    if (!S.t3) missing.push('검사 3');
-    if (!S.t4) missing.push('검사 4');
+    if (!S.t1) missing.push('Test 1');
+    if (!S.t2) missing.push('Test 2');
+    if (!S.t3) missing.push('Test 3');
+    if (!S.t4) missing.push('Test 4');
 
     if (missing.length) {
         h += `<div class="pending-notice">
-            <p>⚠️ 미완료 검사 있음</p>
-            <p>${missing.join(', ')}이(가) 아직 완료되지 않았습니다. 완료된 검사 결과만 표시됩니다.</p>
+            <p>⚠️ Incomplete assessments</p>
+            <p>${missing.join(', ')} not yet completed. Only completed results are shown.</p>
         </div>`;
     }
 
-    /* ── Test 1 ── */
     if (S.t1) {
         const r = S.t1;
-        const maxS = T1_SEC.length * 5;  // 55
-        const maxA = T1_AVO.length * 5;  // 60
-        const maxX = T1_ANX.length * 5;  // 45
-        const maxD = T1_DIS.length * 5;  // 40
+        const maxS = T1_SEC.length * 5;
+        const maxA = T1_AVO.length * 5;
+        const maxX = T1_ANX.length * 5;
+        const maxD = T1_DIS.length * 5;
         h += `<div class="comp-card">
-            <div class="comp-section-title">검사 01 결과</div>
+            <div class="comp-section-title">Assessment 01 Results</div>
             <div class="comp-type-badge ${r.key}">${r.emoji} ${r.type}</div>
-            ${bar('🌿 안정형',       r.s, maxS, 'green')}
-            ${bar('🧊 무시형',       r.a, maxA, 'blue')}
-            ${bar('🌊 집착형',       r.x, maxX, 'orange')}
-            ${bar('🌀 혼란형',       r.d, maxD, 'red')}
+            ${bar('🌿 Secure',       r.s, maxS, 'green')}
+            ${bar('🧊 Dismissive',   r.a, maxA, 'blue')}
+            ${bar('🌊 Anxious',      r.x, maxX, 'orange')}
+            ${bar('🌀 Disorganized', r.d, maxD, 'red')}
             <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${r.desc}</p>
             <p style="font-size:13px;color:#009aaa;margin-top:8px">📖 ${r.verse}</p>
         </div>`;
     }
 
-    /* ── Test 2 ── */
     if (S.t2) {
         const a2 = S.t2.analysis;
         h += `<div class="comp-card">
-            <div class="comp-section-title">검사 02 결과</div>
+            <div class="comp-section-title">Assessment 02 Results</div>
             <div class="comp-type-badge" style="background:#fce4ec;color:#ad1457">${a2.emoji} ${a2.type}</div>
             ${a2.scores.map(c => barHtml(c.name, c.pct, c.color)).join('')}
             <div class="tone-summary" style="margin-top:12px">
-                <div class="tone-pill pos">🟢 긍정 ${a2.posC}개</div>
-                <div class="tone-pill neg">🔴 부정 ${a2.negC}개</div>
-                <div class="tone-pill neu">🟡 중립 ${a2.neuC}개</div>
+                <div class="tone-pill pos">🟢 Positive ${a2.posC}</div>
+                <div class="tone-pill neg">🔴 Negative ${a2.negC}</div>
+                <div class="tone-pill neu">🟡 Neutral ${a2.neuC}</div>
             </div>
             <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${a2.desc}</p>
             <div class="counselor-note" style="margin-top:10px">
-                <p>📋 상담사 참고</p><p>${a2.note}</p>
+                <p>📋 COUNSELOR NOTE</p><p>${a2.note}</p>
             </div>
             <details style="margin-top:14px">
-                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ 전체 응답 보기</summary>
+                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ View All Responses</summary>
                 <div style="margin-top:10px">
                 ${S.t2.resp.map((item, i) => {
                     const { cls, icon } = toneLabel(a2.tones[i]);
@@ -1216,7 +1217,7 @@ function buildComp() {
                         <span class="tone-icon">${icon}</span>
                         <div class="stc-resp-inner">
                             <div class="stc-resp-q">${i+1}. ${stemText}</div>
-                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">미작성</div>`}
+                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">Not answered</div>`}
                         </div>
                     </div>`;
                 }).join('')}
@@ -1225,24 +1226,23 @@ function buildComp() {
         </div>`;
     }
 
-    /* ── Test 3 ── */
     if (S.t3) {
         const a3 = S.t3.analysis;
         h += `<div class="comp-card">
-            <div class="comp-section-title">검사 03 결과</div>
+            <div class="comp-section-title">Assessment 03 Results</div>
             <div class="comp-type-badge" style="background:#e8f5e9;color:#2e7d32">${a3.emoji} ${a3.type}</div>
             ${a3.scores.map(c => barHtml(c.name, c.pct, c.color)).join('')}
             <div class="tone-summary" style="margin-top:12px">
-                <div class="tone-pill pos">🟢 긍정 ${a3.posC}개</div>
-                <div class="tone-pill neg">🔴 부정 ${a3.negC}개</div>
-                <div class="tone-pill neu">🟡 중립 ${a3.neuC}개</div>
+                <div class="tone-pill pos">🟢 Positive ${a3.posC}</div>
+                <div class="tone-pill neg">🔴 Negative ${a3.negC}</div>
+                <div class="tone-pill neu">🟡 Neutral ${a3.neuC}</div>
             </div>
             <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${a3.desc}</p>
             <div class="counselor-note" style="margin-top:10px">
-                <p>📋 상담사 참고</p><p>${a3.note}</p>
+                <p>📋 COUNSELOR NOTE</p><p>${a3.note}</p>
             </div>
             <details style="margin-top:14px">
-                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ 전체 응답 보기</summary>
+                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ View All Responses</summary>
                 <div style="margin-top:10px">
                 ${S.t3.resp.map((item, i) => {
                     const { cls, icon } = toneLabel(a3.tones[i]);
@@ -1251,7 +1251,7 @@ function buildComp() {
                         <span class="tone-icon">${icon}</span>
                         <div class="stc-resp-inner">
                             <div class="stc-resp-q">${i+1}. ${stemText}</div>
-                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">미작성</div>`}
+                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">Not answered</div>`}
                         </div>
                     </div>`;
                 }).join('')}
@@ -1260,37 +1260,34 @@ function buildComp() {
         </div>`;
     }
 
-    /* ── Test 4 ── */
     if (S.t4) {
         const r = S.t4;
         const altP = Math.round(r.alt / 95 * 100);
         const selP = Math.round(r.sel / 95 * 100);
         h += `<div class="comp-card">
-            <div class="comp-section-title">검사 04 결과</div>
+            <div class="comp-section-title">Assessment 04 Results</div>
             <div class="comp-type-badge ${r.key}">${r.emoji} ${r.type}</div>
-            ${bar('🟢 이타성 / 절제',    r.alt, 95, 'green')}
-            ${bar('🔴 이기성 / 자기중심', r.sel, 95, 'red')}
-            ${r.warn ? `<div class="warning-pill">⚠️ 타당도 주의 — 자기합리화 가능성 (${r.val}/10)</div>` : ''}
+            ${bar('🟢 Altruism / Self-control',    r.alt, 95, 'green')}
+            ${bar('🔴 Selfishness / Self-centered', r.sel, 95, 'red')}
+            ${r.warn ? `<div class="warning-pill">⚠️ Validity Warning — possible self-rationalization (${r.val}/10)</div>` : ''}
             <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${r.desc}</p>
         </div>`;
     }
 
-    /* ── CTA ── */
     h += `<div class="comp-cta">
-        <p>검사가 완료되었습니다.<br>상담사와 함께 결과를 나눠보세요.</p>
-        <button class="print-btn" onclick="window.print()">🖨️ 인쇄하기</button>
-        <button class="restart-btn" onclick="restartAll()">↩ 처음부터 다시</button>
+        <p>All assessments completed.<br>Share the results with your counselor.</p>
+        <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+        <button class="restart-btn" onclick="restartAll()">↩ Start Over</button>
     </div>`;
 
     /* ── Save section ── */
     h += `<div class="comp-card">
-        <div class="comp-section-title">결과 저장</div>
+        <div class="comp-section-title">Save Results</div>
         <div class="save-section">
             <p style="font-size:14px;color:#555;margin-bottom:16px;line-height:1.7">
-                아래 버튼을 누르면 결과가 저장되고<br>
-                <strong>${REG.email || '입력한 이메일'}</strong>로 결과 링크가 발송됩니다.
+                Click the button below to save your results<br>and send a result link to <strong>${REG.email || 'your email'}</strong>.
             </p>
-            <button id="save-btn" class="submit-btn" onclick="submitResults()">💾 결과 저장 및 이메일 발송</button>
+            <button id="save-btn" class="submit-btn" onclick="submitResults()">💾 Save Results & Send Email</button>
             <div id="save-status"></div>
         </div>
     </div>`;
@@ -1301,7 +1298,7 @@ function buildComp() {
 function bar(label, val, max, color) {
     const pct = Math.min(100, Math.round(val / max * 100));
     return `<div class="bar-wrap">
-        <div class="bar-labels"><span>${label}</span><span>${val}점 (${pct}%)</span></div>
+        <div class="bar-labels"><span>${label}</span><span>${val} (${pct}%)</span></div>
         <div class="bar-track"><div class="bar-fill ${color}" style="width:${pct}%"></div></div>
     </div>`;
 }
@@ -1317,7 +1314,6 @@ function restartAll() {
     document.getElementById('main-nav').style.display = 'none';
     ['reg-name','reg-email','reg-birth'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
     document.getElementById('reg-error').textContent = '';
-    // Go back to registration
     document.querySelectorAll('.test-section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('test0').classList.add('active');
