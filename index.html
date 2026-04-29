@@ -344,6 +344,57 @@
         /* ── Footer ── */
         .footer { text-align: center; margin-top: 48px; font-size: 12px; color: #c0b8d0; }
 
+        /* ── STC Analysis ── */
+        .stc-type-card {
+            text-align: center; padding: 20px;
+            background: linear-gradient(135deg, #f8bbd0, #e1bee7);
+            border-radius: 16px; margin-bottom: 16px;
+            font-size: 20px; font-weight: 700; color: #4a2060;
+        }
+        .stc-type-card span { display:block; font-size:12px; font-weight:400; color:#7a5090; margin-bottom:4px; }
+
+        .stc-cluster-title {
+            font-size: 11px; font-weight: 700; color: #9090b0;
+            letter-spacing: 1px; text-transform: uppercase;
+            margin: 18px 0 10px;
+        }
+
+        .stc-resp-row {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 10px 14px; background: #faf8ff;
+            border-radius: 10px; margin-bottom: 7px;
+            border-left: 3px solid #e0d0f8;
+        }
+        .stc-resp-row.tone-pos { border-left-color: #66bb6a; }
+        .stc-resp-row.tone-neg { border-left-color: #ef5350; }
+        .stc-resp-row.tone-neu { border-left-color: #e0d0f8; }
+
+        .tone-icon { font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+        .stc-resp-inner { flex: 1; min-width: 0; }
+        .stc-resp-q { font-size: 11px; color: #aaa; margin-bottom: 3px; line-height: 1.4; }
+        .stc-resp-a { font-size: 14px; font-weight: 500; color: #4a4a6a; line-height: 1.5; }
+        .stc-resp-empty-a { font-size: 13px; color: #ccc; font-style: italic; }
+
+        .counselor-note {
+            margin-top: 14px; padding: 14px 18px;
+            background: #f0f4ff; border-radius: 12px;
+            border-left: 4px solid #7986cb;
+        }
+        .counselor-note p:first-child { font-size: 11px; font-weight: 700; color: #7986cb; margin-bottom: 6px; letter-spacing: .5px; }
+        .counselor-note p:last-child  { font-size: 13px; color: #555; line-height: 1.7; }
+
+        .tone-summary {
+            display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+        }
+        .tone-pill {
+            display: flex; align-items: center; gap: 5px;
+            padding: 6px 14px; border-radius: 20px;
+            font-size: 12px; font-weight: 700;
+        }
+        .tone-pill.pos { background: #e8f5e9; color: #2e7d32; }
+        .tone-pill.neg { background: #fce4ec; color: #c62828; }
+        .tone-pill.neu { background: #f3f3f3; color: #777; }
+
         /* ── Print ── */
         @media print {
             .top-nav, .submit-wrap, .next-btn, .print-btn, .restart-btn { display: none !important; }
@@ -618,6 +669,175 @@ function submitTest1() {
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
 
+/* ══════════ STC 분석 엔진 ══════════ */
+const POS_W = [
+    '편안','안심','안전','신뢰','믿음','사랑','평안','기쁨','기쁘','행복','감사',
+    '가깝','친밀','따뜻','든든','확신','소망','기대','함께','도움','응답','자유',
+    '충분','회복','성장','용기','자신있','소중','가치있','괜찮','잘하','건강',
+    '의지','위로','보호','지켜','열린','좋아','좋은','강점','발전','수용',
+    '받아들','인정','충분하','자랑','기쁘다','열정','평화','사랑하','감동',
+    '기도할','응답하','가까이','들어주','함께하','아신다','알아주','채워',
+    '고마','존재','풍성','넉넉','든든','포용','치유','회복','새롭','기회'
+];
+const NEG_W = [
+    '두려움','두렵','무섭','불안','걱정','멀다','멀어','실망','포기','숨기',
+    '모르겠','없다','없는','힘들','거리','차갑','어렵','슬픔','슬프','화가',
+    '불신','의심','자격없','쓸모없','부끄','창피','죄책','가치없','비교',
+    '외롭','외면','떠나','버리','침묵하','낯설','부족','못하','싫다','열등',
+    '회피','거부','상처','막막','공허','허전','무기력','형편없','후회',
+    '불편','두렵다','판단','심판','정죄','벌','떠나셨','외면하','숨어',
+    '귀찮','지쳐','절망','나약','실패','나쁜','나쁘','못된','부담','무관심',
+    '텅 빈','공허하','아픔','고통','괴롭','억울','억압','통제','두려','무섭'
+];
+
+function toneOf(text) {
+    if (!text || !text.trim()) return 0;
+    let s = 0;
+    POS_W.forEach(w => { if (text.includes(w)) s++; });
+    NEG_W.forEach(w => { if (text.includes(w)) s--; });
+    return s > 0 ? 1 : s < 0 ? -1 : 0;
+}
+
+function clusterPct(vals, idxs) {
+    const nonEmpty = idxs.filter(i => vals[i] && vals[i].trim());
+    if (!nonEmpty.length) return 50;
+    const sum = nonEmpty.reduce((acc, i) => acc + toneOf(vals[i]), 0);
+    return Math.round((sum / nonEmpty.length + 1) / 2 * 100);
+}
+
+function toneLabel(t) {
+    return t === 1 ? { cls:'tone-pos', icon:'🟢' }
+         : t === -1 ? { cls:'tone-neg', icon:'🔴' }
+         : { cls:'tone-neu', icon:'🟡' };
+}
+
+function barHtml(label, pct, color) {
+    return `<div class="bar-wrap">
+        <div class="bar-labels"><span>${label}</span><span>${pct}%</span></div>
+        <div class="bar-track"><div class="bar-fill ${color}" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+// ── Test 2 클러스터 (0-indexed) ──
+const T2_CLUSTERS = [
+    { name:'친밀·신뢰',   idxs:[0,1,2,5,6,8,9],    color:'green'  },
+    { name:'불안·두려움', idxs:[3,4,11,15],          color:'red'    },
+    { name:'기대·의존',   idxs:[7,10,12,16],         color:'blue'   },
+    { name:'관계 정체성', idxs:[13,14,17,18,19],     color:'orange' },
+];
+
+// ── Test 3 클러스터 (0-indexed) ──
+const T3_CLUSTERS = [
+    { name:'자기인식',       idxs:[0,6,18,19],           color:'blue'   },
+    { name:'외부반응',       idxs:[1,3,4,5,17],          color:'orange' },
+    { name:'비교·시선',      idxs:[2,10,11,14],          color:'red'    },
+    { name:'자기수용·자원',  idxs:[7,8,9,12,13,15,16],   color:'green'  },
+];
+
+function analyzeSTCResult(vals, clusters, typeRules) {
+    const scores = clusters.map(c => ({ ...c, pct: clusterPct(vals, c.idxs) }));
+    const tones  = vals.map(v => toneOf(v));
+    const posC = tones.filter(t => t === 1).length;
+    const negC = tones.filter(t => t === -1).length;
+    const neuC = tones.filter(t => t === 0).length;
+    const type = typeRules(scores);
+    return { scores, tones, posC, negC, neuC, ...type };
+}
+
+function t2TypeRule(scores) {
+    const intimacy = scores[0].pct;
+    const fear     = scores[1].pct;
+    if (intimacy >= 60 && fear <= 40)
+        return { type:'친밀·신뢰형', emoji:'🌸', key:'intimate',
+            desc:'하나님과의 관계에서 친밀감과 신뢰가 높게 나타납니다. 기도와 소통이 자연스럽고 하나님의 사랑을 비교적 확신하는 편입니다.',
+            note:'현재 안정적인 신앙 관계가 형성되어 있습니다. 더 깊은 영적 성장의 방향을 함께 탐색해보세요.' };
+    if (intimacy >= 50 && fear >= 50)
+        return { type:'불안·집착형', emoji:'🌊', key:'anxious-g',
+            desc:'하나님과 가까워지고 싶은 마음이 크지만, 동시에 두려움이나 불안이 함께 나타납니다. 하나님의 침묵이나 거리감에 민감하게 반응할 수 있습니다.',
+            note:'하나님에 대한 이미지가 양가적일 수 있습니다. 어린 시절 관계 경험과의 연결을 탐색해볼 수 있습니다.' };
+    if (intimacy <= 40)
+        return { type:'거리·회피형', emoji:'🧊', key:'distant',
+            desc:'하나님과의 관계에서 거리감이나 회피 경향이 나타납니다. 감정을 드러내거나 깊이 의지하는 것이 불편할 수 있습니다.',
+            note:'신앙 경험에서의 실망이나 상처를 탐색해볼 필요가 있습니다. 하나님 이미지 재형성 작업이 도움이 될 수 있습니다.' };
+    return { type:'복합·혼재형', emoji:'🌀', key:'complex',
+        desc:'하나님과의 관계에서 복합적인 감정이 나타납니다. 특정 영역에서는 친밀하지만, 다른 영역에서는 혼란이 있을 수 있습니다.',
+        note:'개별 응답을 세밀하게 살펴보며 구체적인 패턴을 파악해보세요.' };
+}
+
+function t3TypeRule(scores) {
+    const awareness  = scores[0].pct;
+    const external   = scores[1].pct;
+    const acceptance = scores[3].pct;
+    if (awareness >= 60 && acceptance >= 60)
+        return { type:'건강한 자존감형', emoji:'🌱', key:'healthy',
+            desc:'자기 자신을 긍정적으로 인식하고 수용하는 편입니다. 실패나 비판에도 비교적 안정적으로 반응할 수 있습니다.',
+            note:'건강한 자존감 기반이 있습니다. 성장 영역을 함께 탐색하고 강점을 더 활용하는 방향을 모색해보세요.' };
+    if (external >= 60)
+        return { type:'외부의존형', emoji:'🔍', key:'external',
+            desc:'자기 가치를 주로 타인의 인정이나 반응에서 찾는 경향이 있습니다. 칭찬받을 때 가치를 느끼고, 비판에 민감하게 반응할 수 있습니다.',
+            note:'내면에서 가치를 발견하는 작업이 필요합니다. 하나님 안에서의 정체성 형성이 핵심 과제가 될 수 있습니다.' };
+    if (awareness <= 40 && acceptance <= 40)
+        return { type:'자기비판형', emoji:'🪞', key:'critical',
+            desc:'자기 자신에 대해 비판적이고 엄격한 내면의 목소리가 강하게 나타납니다. 약점에 집중하고 자기 수용이 어려울 수 있습니다.',
+            note:'내면 비판자 작업과 자기 연민 훈련이 도움이 될 수 있습니다. 은혜로 자신을 바라보는 연습이 필요합니다.' };
+    return { type:'불안정형', emoji:'💧', key:'unstable',
+        desc:'자존감이 상황에 따라 크게 변동하는 경향이 있습니다. 내외부의 자극에 따라 자기 인식이 흔들릴 수 있습니다.',
+        note:'자아 정체감 강화 작업이 필요합니다. 일관된 자기 인식을 갖도록 돕는 상담이 효과적일 수 있습니다.' };
+}
+
+function buildSTCResultHTML(resp, stems, clusters, analysis, nextTestNum) {
+    const vals = resp.map(r => r.val);
+    let h = `<div class="result-title">📊 검사 결과</div>`;
+
+    // 유형
+    h += `<div class="stc-type-card"><span>나의 유형</span>${analysis.emoji} ${analysis.type}</div>`;
+
+    // 클러스터 바
+    h += `<div class="stc-cluster-title">테마별 분석</div>`;
+    analysis.scores.forEach(c => { h += barHtml(c.name, c.pct, c.color); });
+
+    // 톤 요약
+    h += `<div class="tone-summary" style="margin-top:14px">
+        <div class="tone-pill pos">🟢 긍정 ${analysis.posC}개</div>
+        <div class="tone-pill neg">🔴 부정 ${analysis.negC}개</div>
+        <div class="tone-pill neu">🟡 중립 ${analysis.neuC}개</div>
+    </div>`;
+
+    // 진단
+    h += `<div class="result-detail-card diagnosis">
+        <h3>🔎 분석</h3><p>${analysis.desc}</p>
+    </div>`;
+
+    // 상담사 노트
+    h += `<div class="counselor-note">
+        <p>📋 상담사 참고</p>
+        <p>${analysis.note}</p>
+    </div>`;
+
+    // 응답별 톤
+    h += `<div class="stc-cluster-title" style="margin-top:20px">응답별 반응 패턴</div>`;
+    resp.forEach((item, i) => {
+        const { cls, icon } = toneLabel(analysis.tones[i]);
+        const stemText = item.stem.after
+            ? `${item.stem.b} ___ ${item.stem.after}`
+            : `${item.stem.b} ___`;
+        h += `<div class="stc-resp-row ${cls}">
+            <span class="tone-icon">${icon}</span>
+            <div class="stc-resp-inner">
+                <div class="stc-resp-q">${i+1}. ${stemText}</div>
+                ${item.val
+                    ? `<div class="stc-resp-a">${item.val}</div>`
+                    : `<div class="stc-resp-empty-a">미작성</div>`}
+            </div>
+        </div>`;
+    });
+
+    h += `<div style="text-align:center;margin-top:24px">
+        <button class="next-btn" onclick="showTest(${nextTestNum})">다음 검사로 →</button>
+    </div>`;
+    return h;
+}
+
 /* ══════════ TEST 2 — 하나님과의 관계 (STC) ══════════ */
 const T2S = [
     { b:'하나님은 나에게',              after:'분이다' },
@@ -647,13 +867,12 @@ function submitTest2() {
         stem: s,
         val: (document.getElementById('b' + i) || {}).value?.trim() || ''
     }));
-    S.t2 = { resp };
+    const vals = resp.map(r => r.val);
+    const analysis = analyzeSTCResult(vals, T2_CLUSTERS, t2TypeRule);
+    S.t2 = { resp, analysis };
     markDone(2);
     const box = document.getElementById('result2');
-    box.innerHTML = `
-        <div class="result-title">✅ 저장 완료</div>
-        <p style="font-size:14px;color:#7a5090;margin-bottom:18px">응답이 저장되었습니다.<br>종합 결과 화면에서 전체 내용을 확인할 수 있습니다.</p>
-        <div style="text-align:center"><button class="next-btn" onclick="showTest(3)">다음 검사로 →</button></div>`;
+    box.innerHTML = buildSTCResultHTML(resp, T2S, T2_CLUSTERS, analysis, 3);
     box.classList.add('show');
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
@@ -687,13 +906,12 @@ function submitTest3() {
         stem: s,
         val: (document.getElementById('c' + i) || {}).value?.trim() || ''
     }));
-    S.t3 = { resp };
+    const vals = resp.map(r => r.val);
+    const analysis = analyzeSTCResult(vals, T3_CLUSTERS, t3TypeRule);
+    S.t3 = { resp, analysis };
     markDone(3);
     const box = document.getElementById('result3');
-    box.innerHTML = `
-        <div class="result-title">✅ 저장 완료</div>
-        <p style="font-size:14px;color:#7a5090;margin-bottom:18px">응답이 저장되었습니다.<br>종합 결과 화면에서 전체 내용을 확인할 수 있습니다.</p>
-        <div style="text-align:center"><button class="next-btn" onclick="showTest(4)">다음 검사로 →</button></div>`;
+    box.innerHTML = buildSTCResultHTML(resp, T3S, T3_CLUSTERS, analysis, 4);
     box.classList.add('show');
     box.scrollIntoView({ behavior:'smooth', block:'nearest' });
 }
@@ -836,32 +1054,72 @@ function buildComp() {
 
     /* ── Test 2 ── */
     if (S.t2) {
-        h += `<div class="comp-card"><div class="comp-section-title">검사 02 결과</div>`;
-        S.t2.resp.forEach((item, i) => {
-            const full = item.stem.after
-                ? `${item.stem.b} ___ ${item.stem.after}`
-                : `${item.stem.b} ___`;
-            h += `<div class="stc-resp-item">
-                <div class="stc-resp-stem">${i+1}. ${full}</div>
-                <div class="${item.val ? 'stc-resp-text' : 'stc-resp-empty'}">${item.val || '미작성'}</div>
-            </div>`;
-        });
-        h += `</div>`;
+        const a2 = S.t2.analysis;
+        h += `<div class="comp-card">
+            <div class="comp-section-title">검사 02 결과</div>
+            <div class="comp-type-badge" style="background:#fce4ec;color:#ad1457">${a2.emoji} ${a2.type}</div>
+            ${a2.scores.map(c => barHtml(c.name, c.pct, c.color)).join('')}
+            <div class="tone-summary" style="margin-top:12px">
+                <div class="tone-pill pos">🟢 긍정 ${a2.posC}개</div>
+                <div class="tone-pill neg">🔴 부정 ${a2.negC}개</div>
+                <div class="tone-pill neu">🟡 중립 ${a2.neuC}개</div>
+            </div>
+            <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${a2.desc}</p>
+            <div class="counselor-note" style="margin-top:10px">
+                <p>📋 상담사 참고</p><p>${a2.note}</p>
+            </div>
+            <details style="margin-top:14px">
+                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ 전체 응답 보기</summary>
+                <div style="margin-top:10px">
+                ${S.t2.resp.map((item, i) => {
+                    const { cls, icon } = toneLabel(a2.tones[i]);
+                    const stemText = item.stem.after ? `${item.stem.b} ___ ${item.stem.after}` : `${item.stem.b} ___`;
+                    return `<div class="stc-resp-row ${cls}">
+                        <span class="tone-icon">${icon}</span>
+                        <div class="stc-resp-inner">
+                            <div class="stc-resp-q">${i+1}. ${stemText}</div>
+                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">미작성</div>`}
+                        </div>
+                    </div>`;
+                }).join('')}
+                </div>
+            </details>
+        </div>`;
     }
 
     /* ── Test 3 ── */
     if (S.t3) {
-        h += `<div class="comp-card"><div class="comp-section-title">검사 03 결과</div>`;
-        S.t3.resp.forEach((item, i) => {
-            const full = item.stem.after
-                ? `${item.stem.b} ___ ${item.stem.after}`
-                : `${item.stem.b} ___`;
-            h += `<div class="stc-resp-item">
-                <div class="stc-resp-stem">${i+1}. ${full}</div>
-                <div class="${item.val ? 'stc-resp-text' : 'stc-resp-empty'}">${item.val || '미작성'}</div>
-            </div>`;
-        });
-        h += `</div>`;
+        const a3 = S.t3.analysis;
+        h += `<div class="comp-card">
+            <div class="comp-section-title">검사 03 결과</div>
+            <div class="comp-type-badge" style="background:#e8f5e9;color:#2e7d32">${a3.emoji} ${a3.type}</div>
+            ${a3.scores.map(c => barHtml(c.name, c.pct, c.color)).join('')}
+            <div class="tone-summary" style="margin-top:12px">
+                <div class="tone-pill pos">🟢 긍정 ${a3.posC}개</div>
+                <div class="tone-pill neg">🔴 부정 ${a3.negC}개</div>
+                <div class="tone-pill neu">🟡 중립 ${a3.neuC}개</div>
+            </div>
+            <p style="font-size:13px;color:#777;margin-top:10px;line-height:1.6">${a3.desc}</p>
+            <div class="counselor-note" style="margin-top:10px">
+                <p>📋 상담사 참고</p><p>${a3.note}</p>
+            </div>
+            <details style="margin-top:14px">
+                <summary style="font-size:12px;color:#9090b0;cursor:pointer;font-weight:700;letter-spacing:.5px">▶ 전체 응답 보기</summary>
+                <div style="margin-top:10px">
+                ${S.t3.resp.map((item, i) => {
+                    const { cls, icon } = toneLabel(a3.tones[i]);
+                    const stemText = item.stem.after ? `${item.stem.b} ___ ${item.stem.after}` : `${item.stem.b} ___`;
+                    return `<div class="stc-resp-row ${cls}">
+                        <span class="tone-icon">${icon}</span>
+                        <div class="stc-resp-inner">
+                            <div class="stc-resp-q">${i+1}. ${stemText}</div>
+                            ${item.val ? `<div class="stc-resp-a">${item.val}</div>` : `<div class="stc-resp-empty-a">미작성</div>`}
+                        </div>
+                    </div>`;
+                }).join('')}
+                </div>
+            </details>
+        </div>`;
     }
 
     /* ── Test 4 ── */
