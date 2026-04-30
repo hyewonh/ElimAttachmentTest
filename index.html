@@ -429,11 +429,17 @@
         }
 
         /* ── Print ── */
+        .no-print { /* hidden during print, visible on screen */ }
         @media print {
-            .top-nav, .submit-wrap, .next-btn, .print-btn, .restart-btn { display: none !important; }
+            .top-nav, .submit-wrap, .next-btn, .print-btn, .restart-btn,
+            .no-print { display: none !important; }
             .test-section { display: none !important; }
             #test5 { display: block !important; }
             body { background: #fff; }
+            .comp-card { break-inside: avoid; }
+            .bar-fill, .comp-type-badge, .result-type {
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+            }
         }
 
         @media (max-width: 480px) {
@@ -606,12 +612,28 @@ function buildResultUrl() {
 async function submitResults() {
     const btn    = document.getElementById('save-btn');
     const status = document.getElementById('save-status');
-    btn.disabled = true; btn.textContent = '전송 중...';
     const resultUrl = buildResultUrl();
+
+    /* ── Webhook 미설정이면 결과지 링크만 표시 ── */
+    if (!MAKE_WEBHOOK || MAKE_WEBHOOK === 'YOUR_MAKE_WEBHOOK_URL') {
+        btn.textContent = '✅ 결과지 생성 완료';
+        btn.disabled = true;
+        status.innerHTML = `
+            <p style="color:#2e7d32;font-size:13px;margin-top:10px;line-height:1.6">
+              결과지가 생성되었습니다.<br>아래 링크에서 확인 및 인쇄하세요.
+            </p>
+            <a href="${resultUrl}" target="_blank" class="save-result-link" style="display:inline-block;margin-top:10px">
+              📄 결과지 열기 / 인쇄
+            </a>`;
+        return;
+    }
+
+    /* ── Webhook 설정된 경우 전송 ── */
+    btn.disabled = true; btn.textContent = '전송 중...';
     const payload = {
         id: REG.id, submittedAt: new Date().toISOString(), lang: LANG,
         name: REG.name, email: REG.email, birthDate: REG.birthDate,
-        resultUrl: resultUrl,
+        resultUrl,
         t1Type: S.t1 ? S.t1.type : '-',
         t2Type: S.t2 ? S.t2.type : '-',
         t3Type: S.t3 ? S.t3.type : '-',
@@ -619,19 +641,25 @@ async function submitResults() {
     };
     try {
         await fetch(MAKE_WEBHOOK, {
-            method:'POST', headers:{'Content-Type':'application/json'},
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
         btn.textContent = '✅ 저장 완료';
         status.innerHTML = `
-            <p style="color:#2e7d32;font-size:13px;margin-top:8px;line-height:1.6">
+            <p style="color:#2e7d32;font-size:13px;margin-top:10px;line-height:1.6">
               결과가 저장되었습니다.<br>
               <strong>${REG.email}</strong>로 결과 링크를 발송합니다.
             </p>
-            <a href="${resultUrl}" target="_blank" class="save-result-link">📄 결과지 열기</a>`;
+            <a href="${resultUrl}" target="_blank" class="save-result-link" style="display:inline-block;margin-top:10px">
+              📄 결과지 열기 / 인쇄
+            </a>`;
     } catch(e) {
         btn.disabled = false; btn.textContent = '💾 결과 저장 및 이메일 발송';
-        status.textContent = '전송에 실패했습니다. 다시 시도해 주세요.';
+        status.innerHTML = `
+            <p style="color:#c62828;font-size:13px;margin-top:10px">이메일 발송에 실패했습니다. 다시 시도해 주세요.</p>
+            <a href="${resultUrl}" target="_blank" class="save-result-link" style="display:inline-block;margin-top:10px">
+              📄 결과지 열기 / 인쇄
+            </a>`;
     }
 }
 
@@ -1203,20 +1231,22 @@ function buildComp() {
         </div>`;
     }
 
+    const resultUrl = buildResultUrl();
+
     /* ── CTA ── */
     h += `<div class="comp-cta">
         <p>검사가 완료되었습니다.<br>상담사와 함께 결과를 나눠보세요.</p>
-        <button class="print-btn" onclick="window.print()">🖨️ 인쇄하기</button>
+        <button class="print-btn" onclick="window.open('${resultUrl}','_blank')">📄 결과지 열기 / 인쇄</button>
         <button class="restart-btn" onclick="restartAll()">↩ 처음부터 다시</button>
     </div>`;
 
-    /* ── Save section ── */
-    h += `<div class="comp-card">
-        <div class="comp-section-title">결과 저장</div>
+    /* ── Save section (no-print) ── */
+    h += `<div class="comp-card no-print">
+        <div class="comp-section-title">결과 저장 및 이메일 발송</div>
         <div class="save-section">
             <p style="font-size:14px;color:#555;margin-bottom:16px;line-height:1.7">
-                아래 버튼을 누르면 결과가 저장되고<br>
-                <strong>${REG.email || '입력한 이메일'}</strong>로 결과 링크가 발송됩니다.
+                결과를 저장하고
+                <strong>${REG.email || '입력한 이메일'}</strong>로 이메일을 발송합니다.
             </p>
             <button id="save-btn" class="submit-btn" onclick="submitResults()">💾 결과 저장 및 이메일 발송</button>
             <div id="save-status"></div>

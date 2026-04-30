@@ -135,34 +135,34 @@ function render(d) {
     const L = {
         ko: { title:'상담 결과지', name:'이름', birth:'생년월일', date:'검사일',
               t1:'검사 01', t2:'검사 02', t3:'검사 03', t4:'검사 04',
-              type:'나의 유형', clusters:'테마별 분석', tone:'응답 톤',
-              desc:'분석', counselor:'상담사 참고', stc:'응답별 패턴',
-              verse:'말씀', altruism:'이타성/절제', selfish:'이기성/자기중심',
-              validity:'타당도', warning:'타당도 주의', pos:'긍정', neg:'부정', neu:'중립',
+              type:'나의 유형', total:'전체 점수',
+              desc:'분석', verse:'말씀',
+              altruism:'이타성/절제', selfish:'이기성/자기중심',
+              validity:'타당도', warning:'타당도 주의',
               print:'🖨️ PDF로 인쇄', close:'닫기',
               t1names:['🌿 안정형','🧊 무시형','🌊 집착형','🌀 혼란형'] },
         en: { title:'Counseling Report', name:'Name', birth:'Date of Birth', date:'Test Date',
               t1:'Assessment 01', t2:'Assessment 02', t3:'Assessment 03', t4:'Assessment 04',
-              type:'My Type', clusters:'Theme Analysis', tone:'Response Tone',
-              desc:'Analysis', counselor:'Counselor Note', stc:'Response Patterns',
-              verse:'Scripture', altruism:'Altruism/Self-control', selfish:'Selfishness/Self-centered',
-              validity:'Validity', warning:'Validity Warning', pos:'Positive', neg:'Negative', neu:'Neutral',
+              type:'My Type', total:'Total Score',
+              desc:'Analysis', verse:'Scripture',
+              altruism:'Altruism/Self-control', selfish:'Selfishness/Self-centered',
+              validity:'Validity', warning:'Validity Warning',
               print:'🖨️ Print as PDF', close:'Close',
               t1names:['🌿 Secure','🧊 Dismissive','🌊 Anxious','🌀 Disorganized'] },
         zh: { title:'心理辅导报告', name:'姓名', birth:'出生日期', date:'测试日期',
               t1:'测试 01', t2:'测试 02', t3:'测试 03', t4:'测试 04',
-              type:'我的类型', clusters:'主题分析', tone:'回答倾向',
-              desc:'分析', counselor:'咨询师参考', stc:'回答模式',
-              verse:'圣经', altruism:'利他性/克制', selfish:'自我中心',
-              validity:'效度', warning:'效度警告', pos:'积极', neg:'消极', neu:'中立',
+              type:'我的类型', total:'总分',
+              desc:'分析', verse:'经文',
+              altruism:'利他性/克制', selfish:'自我中心',
+              validity:'效度', warning:'效度警告',
               print:'🖨️ 打印为PDF', close:'关闭',
               t1names:['🌿 安全型','🧊 疏离型','🌊 焦虑型','🌀 混乱型'] },
         es: { title:'Informe de Consultoría', name:'Nombre', birth:'Fecha de Nacimiento', date:'Fecha del Test',
               t1:'Evaluación 01', t2:'Evaluación 02', t3:'Evaluación 03', t4:'Evaluación 04',
-              type:'Mi Tipo', clusters:'Análisis Temático', tone:'Tono de Respuestas',
-              desc:'Análisis', counselor:'Nota del Consejero', stc:'Patrones de Respuesta',
-              verse:'Escritura', altruism:'Altruismo/Autocontrol', selfish:'Egoísmo/Autocentrado',
-              validity:'Validez', warning:'Advertencia de Validez', pos:'Positivo', neg:'Negativo', neu:'Neutral',
+              type:'Mi Tipo', total:'Puntuación Total',
+              desc:'Análisis', verse:'Escritura',
+              altruism:'Altruismo/Autocontrol', selfish:'Egoísmo/Autocentrado',
+              validity:'Validez', warning:'Advertencia de Validez',
               print:'🖨️ Imprimir como PDF', close:'Cerrar',
               t1names:['🌿 Seguro','🧊 Evitativo','🌊 Ansioso','🌀 Desorganizado'] },
     };
@@ -203,56 +203,36 @@ function render(d) {
     // T2
     if (d.t2) {
         const t = d.t2;
+        const cats = t.cats || t.scores || [];
         h += `<div class="section-card">
             <div class="section-title">${l.t2}</div>
-            <div class="type-badge" style="background:#fce4ec;color:#ad1457">${t.emoji} ${t.type}</div>
-            ${(t.scores||[]).map(c => bar(c.name, c.pct, c.color)).join('')}
-            <div class="tone-row">
-                <span class="tone-pill pos">🟢 ${l.pos} ${t.posC||0}</span>
-                <span class="tone-pill neg">🔴 ${l.neg} ${t.negC||0}</span>
-                <span class="tone-pill neu">🟡 ${l.neu} ${t.neuC||0}</span>
+            <div class="type-badge" style="background:#f3e5f5;color:#6a1b9a">${t.emoji} ${t.type}</div>
+            ${cats.map(c => bar(c.name, c.pct, c.color)).join('')}
+            <div style="display:flex;justify-content:space-between;align-items:center;
+                        margin-top:12px;padding:10px 14px;background:#f3e5f5;border-radius:8px">
+                <span style="font-size:13px;color:#6a1b9a;font-weight:600">📊 ${l.total}</span>
+                <span style="font-size:17px;font-weight:700;color:#6a1b9a">${t.sum||0} (${t.totalPct||0}%)</span>
             </div>
-            <p class="desc-text">${t.desc}</p>
-            <div class="counselor-box"><div class="label">📋 ${l.counselor}</div><p>${t.note}</p></div>
-            <div style="margin-top:16px">
-            ${(t.resp||[]).map((item,i) => {
-                const tone = t.tones ? t.tones[i] : 0;
-                const stemText = item.stem?.after ? `${item.stem.b} ___ ${item.stem.after}` : `${item.stem?.b||''} ___`;
-                return `<div class="stc-item ${toneClass(tone)}">
-                    <span style="font-size:13px;flex-shrink:0">${toneIcon(tone)}</span>
-                    <div><div class="stc-q">${i+1}. ${stemText}</div>
-                    ${item.val ? `<div class="stc-a">${item.val}</div>` : `<div class="stc-empty">-</div>`}
-                    </div></div>`;
-            }).join('')}
-            </div>
+            <p class="desc-text">${t.desc||''}</p>
+            ${t.verse ? `<p class="verse-text">📖 ${t.verse}</p>` : ''}
         </div>`;
     }
 
     // T3
     if (d.t3) {
         const t = d.t3;
+        const cats = t.cats || t.scores || [];
         h += `<div class="section-card">
             <div class="section-title">${l.t3}</div>
             <div class="type-badge" style="background:#e8f5e9;color:#2e7d32">${t.emoji} ${t.type}</div>
-            ${(t.scores||[]).map(c => bar(c.name, c.pct, c.color)).join('')}
-            <div class="tone-row">
-                <span class="tone-pill pos">🟢 ${l.pos} ${t.posC||0}</span>
-                <span class="tone-pill neg">🔴 ${l.neg} ${t.negC||0}</span>
-                <span class="tone-pill neu">🟡 ${l.neu} ${t.neuC||0}</span>
+            ${cats.map(c => bar(c.name, c.pct, c.color)).join('')}
+            <div style="display:flex;justify-content:space-between;align-items:center;
+                        margin-top:12px;padding:10px 14px;background:#e8f5e9;border-radius:8px">
+                <span style="font-size:13px;color:#2e7d32;font-weight:600">📊 ${l.total}</span>
+                <span style="font-size:17px;font-weight:700;color:#2e7d32">${t.sum||0} (${t.totalPct||0}%)</span>
             </div>
-            <p class="desc-text">${t.desc}</p>
-            <div class="counselor-box"><div class="label">📋 ${l.counselor}</div><p>${t.note}</p></div>
-            <div style="margin-top:16px">
-            ${(t.resp||[]).map((item,i) => {
-                const tone = t.tones ? t.tones[i] : 0;
-                const stemText = item.stem?.after ? `${item.stem.b} ___ ${item.stem.after}` : `${item.stem?.b||''} ___`;
-                return `<div class="stc-item ${toneClass(tone)}">
-                    <span style="font-size:13px;flex-shrink:0">${toneIcon(tone)}</span>
-                    <div><div class="stc-q">${i+1}. ${stemText}</div>
-                    ${item.val ? `<div class="stc-a">${item.val}</div>` : `<div class="stc-empty">-</div>`}
-                    </div></div>`;
-            }).join('')}
-            </div>
+            <p class="desc-text">${t.desc||''}</p>
+            ${t.verse ? `<p class="verse-text">📖 ${t.verse}</p>` : ''}
         </div>`;
     }
 
