@@ -134,7 +134,7 @@ function render(d) {
     // Label maps by language
     const L = {
         ko: { title:'상담 결과지', name:'이름', birth:'생년월일', date:'검사일',
-              t1:'검사 01', t2:'검사 02', t3:'검사 03', t4:'검사 04',
+              t1:'검사 01', t2:'검사 02', t3:'검사 03', t4:'검사 04', t5:'검사 05',
               type:'나의 유형', total:'전체 점수',
               desc:'분석', verse:'말씀',
               altruism:'이타성/절제', selfish:'이기성/자기중심',
@@ -142,7 +142,7 @@ function render(d) {
               print:'🖨️ PDF로 인쇄', close:'닫기',
               t1names:['🌿 안정형','🧊 무시형','🌊 집착형','🌀 혼란형'] },
         en: { title:'Counseling Report', name:'Name', birth:'Date of Birth', date:'Test Date',
-              t1:'Assessment 01', t2:'Assessment 02', t3:'Assessment 03', t4:'Assessment 04',
+              t1:'Assessment 01', t2:'Assessment 02', t3:'Assessment 03', t4:'Assessment 04', t5:'Assessment 05',
               type:'My Type', total:'Total Score',
               desc:'Analysis', verse:'Scripture',
               altruism:'Altruism/Self-control', selfish:'Selfishness/Self-centered',
@@ -150,7 +150,7 @@ function render(d) {
               print:'🖨️ Print as PDF', close:'Close',
               t1names:['🌿 Secure','🧊 Dismissive','🌊 Anxious','🌀 Disorganized'] },
         zh: { title:'心理辅导报告', name:'姓名', birth:'出生日期', date:'测试日期',
-              t1:'测试 01', t2:'测试 02', t3:'测试 03', t4:'测试 04',
+              t1:'测试 01', t2:'测试 02', t3:'测试 03', t4:'测试 04', t5:'测试 05',
               type:'我的类型', total:'总分',
               desc:'分析', verse:'经文',
               altruism:'利他性/克制', selfish:'自我中心',
@@ -158,7 +158,7 @@ function render(d) {
               print:'🖨️ 打印为PDF', close:'关闭',
               t1names:['🌿 安全型','🧊 疏离型','🌊 焦虑型','🌀 混乱型'] },
         es: { title:'Informe de Consultoría', name:'Nombre', birth:'Fecha de Nacimiento', date:'Fecha del Test',
-              t1:'Evaluación 01', t2:'Evaluación 02', t3:'Evaluación 03', t4:'Evaluación 04',
+              t1:'Evaluación 01', t2:'Evaluación 02', t3:'Evaluación 03', t4:'Evaluación 04', t5:'Evaluación 05',
               type:'Mi Tipo', total:'Puntuación Total',
               desc:'Análisis', verse:'Escritura',
               altruism:'Altruismo/Autocontrol', selfish:'Egoísmo/Autocentrado',
@@ -239,16 +239,31 @@ function render(d) {
     // T4
     if (d.t4) {
         const t = d.t4;
-        const altP = Math.round((t.alt||0)/95*100);
-        const selP = Math.round((t.sel||0)/95*100);
+        const altP = Math.round((t.alt||0)/18*100);
+        const selP = Math.round((t.sel||0)/20*100);
         h += `<div class="section-card">
             <div class="section-title">${l.t4}</div>
             <div class="type-badge" style="background:#fff8e1;color:#e65100">${t.emoji} ${t.type}</div>
             ${bar('🟢 '+l.altruism, altP, 'green')}
             ${bar('🔴 '+l.selfish,  selP, 'red')}
-            ${t.warn ? `<div class="warning-box">⚠️ ${l.warning}: ${t.val}/10</div>` : ''}
+            ${t.warn ? `<div class="warning-box">⚠️ ${l.warning}: ${t.val}/2</div>` : ''}
             <p class="desc-text">${t.desc}</p>
         </div>`;
+    }
+
+    // T5
+    if (d.t5 && d.t5.answers) {
+        h += `<div class="section-card">
+            <div class="section-title">${l.t5}</div>`;
+        d.t5.answers.forEach((a, i) => {
+            h += `<div class="stc-item">
+                <div>
+                    <div class="stc-q">${i+1}. ${a.stem}</div>
+                    <div class="stc-a">${a.answer || '<em style="color:#ccc">미응답</em>'}</div>
+                </div>
+            </div>`;
+        });
+        h += `</div>`;
     }
 
     // Buttons
