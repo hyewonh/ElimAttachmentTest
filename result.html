@@ -190,7 +190,7 @@ function render(d) {
     // T1
     if (d.t1) {
         const t = d.t1;
-        const maxS=[55,60,45,40]; const scores=[t.s,t.a,t.x,t.d]; const colors=['green','blue','orange','red'];
+        const maxS=[50,55,45,50]; const scores=[t.s,t.a,t.x,t.d]; const colors=['green','blue','orange','red'];
         h += `<div class="section-card">
             <div class="section-title">${l.t1}</div>
             <div class="type-badge" style="background:#e8f5e9;color:#2e7d32">${t.emoji} ${t.type}</div>
@@ -284,7 +284,8 @@ function render(d) {
         return;
     }
     try {
-        const data = JSON.parse(decodeURIComponent(escape(atob(d))));
+        const decoded = atob(decodeURIComponent(d));
+        const data = JSON.parse(decodeURIComponent(escape(decoded)));
         render(data);
     } catch(e) {
         document.getElementById('app').innerHTML = '<div class="error-screen"><h2>결과를 불러올 수 없습니다.</h2><p style="color:#aaa;margin-top:8px">링크가 올바르지 않습니다.</p></div>';

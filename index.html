@@ -620,17 +620,18 @@ function startTest() {
 }
 
 function buildResultUrl() {
+    const slimCats = cats => cats.map(c => ({ name:c.name, pct:c.pct, color:c.color }));
     const data = {
         id: REG.id, at: new Date().toISOString(), lang: LANG,
         name: REG.name, email: REG.email, birth: REG.birthDate,
         t1: S.t1 ? { type:S.t1.type,emoji:S.t1.emoji,s:S.t1.s,a:S.t1.a,x:S.t1.x,d:S.t1.d,desc:S.t1.desc,verse:S.t1.verse } : null,
-        t2: S.t2 ? { type:S.t2.type,emoji:S.t2.emoji,sum:S.t2.sum,totalPct:S.t2.totalPct,cats:S.t2.cats,desc:S.t2.desc,verse:S.t2.verse } : null,
-        t3: S.t3 ? { type:S.t3.type,emoji:S.t3.emoji,sum:S.t3.sum,totalPct:S.t3.totalPct,cats:S.t3.cats,desc:S.t3.desc,verse:S.t3.verse } : null,
+        t2: S.t2 ? { type:S.t2.type,emoji:S.t2.emoji,sum:S.t2.sum,totalPct:S.t2.totalPct,cats:slimCats(S.t2.cats),desc:S.t2.desc,verse:S.t2.verse } : null,
+        t3: S.t3 ? { type:S.t3.type,emoji:S.t3.emoji,sum:S.t3.sum,totalPct:S.t3.totalPct,cats:slimCats(S.t3.cats),desc:S.t3.desc,verse:S.t3.verse } : null,
         t4: S.t4 ? { type:S.t4.type,emoji:S.t4.emoji,alt:S.t4.alt,sel:S.t4.sel,val:S.t4.val,desc:S.t4.desc,warn:S.t4.warn } : null,
         t5: S.t5 ? { answers: S.t5.answers } : null,
     };
     const enc = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    return `${RESULT_BASE}?d=${enc}`;
+    return `${RESULT_BASE}?d=${encodeURIComponent(enc)}`;
 }
 
 async function submitResults() {
